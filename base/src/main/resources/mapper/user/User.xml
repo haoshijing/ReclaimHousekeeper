@@ -78,7 +78,7 @@
     </select>
 
     <!-- update po -->
-    <update id="updatePo" parameterType="com.xianduankeji.ktv.base.po.user.User" >
+    <update id="updatePo" parameterType="com.duyun.huishou.housekeeper.po.user.User" >
         UPDATE t_user
         <set>
             <if test="headId != null and headId != ''">

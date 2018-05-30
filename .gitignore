@@ -1,2 +1,7 @@
 *.iml
 *.idea
+/admin/target/
+/base/target/
+/pc/target/
+/portal/target/
+/job/target/
