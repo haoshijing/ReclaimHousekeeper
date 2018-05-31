@@ -15,7 +15,7 @@ import org.springframework.web.servlet.config.annotation.*;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com.xianduankeji.ktv.portal.controller")
+@ComponentScan(basePackages = "com.duyun.huihsou.housekepper.portal.controller")
 @PropertySource(value = "classpath:application.properties", encoding = "UTF-8")
 @Slf4j
 public class WebMvcConf extends WebMvcConfigurerAdapter {

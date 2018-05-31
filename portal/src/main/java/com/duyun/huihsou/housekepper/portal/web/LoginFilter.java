@@ -1,6 +1,7 @@
 package com.duyun.huihsou.housekepper.portal.web;
 
 import com.alibaba.fastjson.JSON;
+import com.duyun.huihsou.housekepper.portal.inteceptor.VisitorAccessible;
 import com.duyun.huishou.housekeeper.ApiResponse;
 import com.duyun.huishou.housekeeper.constants.RetCode;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +37,11 @@ public class LoginFilter extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
         try{
+            HandlerMethod handlerMethod = (HandlerMethod) handler;
+            VisitorAccessible annotation = handlerMethod.getMethodAnnotation(VisitorAccessible.class);
+            if(annotation!=null){
+                return true;
+            }
             String ticket  = request.getHeader(TICKET);
             if(StringUtils.isEmpty(ticket)){
                 ApiResponse tokenValidResponse = new ApiResponse(RetCode.TOKEN_VALID, "ticket error", null);
