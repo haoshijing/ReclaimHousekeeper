@@ -22,5 +22,10 @@ public interface UserService extends IBaseService<User> {
 
     void processSessionData(ResData jsData);
 
+    /**
+     * test
+     * @param userId
+     * @return
+     */
     User queryById(Integer userId);
 }
