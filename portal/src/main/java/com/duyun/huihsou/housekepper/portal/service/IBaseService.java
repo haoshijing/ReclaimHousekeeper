@@ -9,11 +9,11 @@ package com.duyun.huihsou.housekepper.portal.service;
  */
 public interface IBaseService<T> {
 
-    int insertPo(T entity);
+    int insert(T entity);
 
-    int updatePo(T entity);
+    int updateByPrimaryKeySelective(T entity);
 
-    int deletePo(T entity);
+    int deleteByPrimaryKey(Integer id);
 
-    T selectPo(T entity);
+    T selectByPrimaryKey(Integer id);
 }

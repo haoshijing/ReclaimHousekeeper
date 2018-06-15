@@ -1,3 +1,4 @@
+/*
 package com.duyun.huihsou.housekepper.portal.service.auth;
 
 
@@ -18,12 +19,14 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+*/
 /**
  * @author albert
  * @package com.xianduankeji.ktv.portal.service
  * @email cn.lu.duke@gmail.com
  * @date January 10, 2018
- */
+ *//*
+
 
 @Service
 @Slf4j
@@ -45,11 +48,13 @@ public class AuthService {
     RedisTemplate<String, String> redisTemplate;
 
 
-    /**
+    */
+/**
      * 返回客户端凭证
      * @param code
      * @return
-     */
+     *//*
+
     public String getTicket(String code){
         ResData data = getSessionKey(code);
         if(data != null){
@@ -75,11 +80,13 @@ public class AuthService {
 
     }
 
-    /**
+    */
+/**
      * 设置session_key 到redis 并返回修改后的session给客户端
      * @param code
      * @return
-     */
+     *//*
+
     public ResData getSessionKey(String code){
         //构建session url
         StringBuilder builder = new StringBuilder(SESSION_KEY_API_PREFIX);
@@ -104,12 +111,14 @@ public class AuthService {
         return new ResData(openId, unionId, sessionKey, ticket.toString(), "getSessionKey成功");
     }
 
-    /**
+    */
+/**
      * 获取一个随机加密值
      * @param codeType
      * @param content
      * @return
-     */
+     *//*
+
     private String getEncode(String codeType, String content) {
         try {
             // 获取一个实例，并传入加密方式
@@ -130,3 +139,4 @@ public class AuthService {
     }
 
 }
+*/
