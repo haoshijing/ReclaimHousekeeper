@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.duyun.huishou.housekeeper.mapper.user.UserMapper">
+
+    <sql id="all_columns">
+        id,
+        headId,
+        balance,
+        openId,
+        unionId,
+        insertTime,
+        address,
+        nickName,
+        sex,
+        version,
+        invitedppls
+    </sql>
+
+    <sql id="WhereColumnList">
+        <trim suffix="" suffixOverrides=",">
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+            <if test="headId != null">
+                and headId = #{headId}
+            </if>
+            <if test="balance != null">
+                and balance = #{balance}
+            </if>
+            <if test="openId != null">
+                and openId = #{openId}
+            </if>
+            <if test="unionId != null">
+                and unionId = #{unionId}
+            </if>
+            <if test="insertTime != null">
+                and insertTime = #{insertTime}
+            </if>
+        </trim>
+    </sql>
+
+    <update id = "updateBalance">
+        update t_user set balance =  balance + #{addBalance},version = #{version} + 1
+        where id = #{id} and version = #{version}
+    </update>
+
+    <!-- 插入一条记录 -->
+    <insert id="insertPo" parameterType="com.duyun.huishou.housekeeper.po.user.User">
+        INSERT INTO t_user(
+        headId,
+        balance,
+        openId,
+        unionId,
+        insertTime,
+        version,
+        nickName,
+        invitedppls
+        )
+        VALUE (
+        #{headId},
+        #{balance},
+        #{openId},
+        #{unionId},
+        #{insertTime},
+        1,
+        #{nickName},
+        0
+        )
+    </insert>
+
+    <!-- 根据信息筛选返回数据 -->
+    <select id="queryByOpenId" parameterType="java.lang.String" resultType="com.duyun.huishou.housekeeper.po.user.User">
+        SELECT
+        <include refid="all_columns"/>
+        FROM t_user
+        WHERE openId = #{openId}
+    </select>
+
+    <!-- update po -->
+    <update id="updatePo" parameterType="com.duyun.huishou.housekeeper.po.user.User" >
+        UPDATE t_user
+        <set>
+            <if test="headId != null and headId != ''">
+                headId = #{headId},
+            </if>
+            <if test="balance != null">
+                balance = #{balance},
+            </if>
+            <if test="address != null and address != ''">
+                address = #{address},
+            </if>
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            <if test="nickName != null">
+                nickName = #{nickName}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="java.lang.Integer" resultType="com.duyun.huishou.housekeeper.po.user.User">
+        select
+        <include refid="all_columns"/>
+        FROM t_user
+        WHERE id = #{id}
+    </select>
+</mapper>

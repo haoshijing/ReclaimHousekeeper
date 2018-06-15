@@ -1,6 +1,8 @@
 package com.duyun.huihsou.housekepper.portal.controller;
 
+import com.duyun.huihsou.housekepper.portal.inteceptor.VisitorAccessible;
 import com.duyun.huishou.housekeeper.ApiResponse;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,7 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 public class UserController {
 
 
-    @RequestMapping("/bindPhone")
+    @PostMapping("/bindPhone")
+    @VisitorAccessible
     public ApiResponse<Boolean> bindPhone(HttpServletRequest request, String phone) {
 
         return new ApiResponse<>(false);
