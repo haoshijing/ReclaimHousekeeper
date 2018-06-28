@@ -1,3 +1,4 @@
+/*
 package com.duyun.huihsou.housekepper.portal.controller;
 
 
@@ -13,12 +14,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 
+*/
 /**
  * @author albert
  * @package com.xianduankeji.ktv.portal.controller
  * @email cn.lu.duke@gmail.com
  * @date January 10, 2018
- */
+ *//*
+
 
 @RestController
 @RequestMapping("/wechat/auth")
@@ -33,12 +36,14 @@ public class AuthController {
     @Autowired
     RedisTemplate redisTemplate;
 
-    /**
+    */
+/**
      * 收取客户端传入的用户授权码{@code code}
      * 验证wechat用户信息并返回
      * @param code
      * @return
-     */
+     *//*
+
     @RequestMapping(value = "/check_access", method = RequestMethod.GET)
     public ApiResponse noLoginAccess(String code){
         if (StringUtils.isEmpty(code)) {
@@ -51,3 +56,4 @@ public class AuthController {
         return new ApiResponse(ticket);
     }
 }
+*/
