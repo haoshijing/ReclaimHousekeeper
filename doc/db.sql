@@ -35,6 +35,7 @@ CREATE table if t_news(
 id int PRIMARY  KEY auto_incrment '主键id',
 title varchar(100) comment '新闻标题',
 content varchar(5000) comment '新闻内容',
+img varchar(1024) comment '图片',
 isTop tinyint comment '是否置顶',
 insertTime bigint comment '写入时间',
 lastUpdatetTime bigint comment '最后修改时间'

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.duyun.huishou.housekeeper.mapper.BannerConfigEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.duyun.huishou.housekeeper.po.BannerConfigEntity" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="version" property="version" jdbcType="VARCHAR" />
+    <result column="channel" property="channel" jdbcType="TINYINT" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="insert_time" property="insertTime" jdbcType="BIGINT" />
+    <result column="last_update_time" property="lastUpdateTime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, version, channel, icon, title, status, insert_time, last_update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_banner_config
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_banner_config
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.duyun.huishou.housekeeper.po.BannerConfigEntity" >
+    insert into t_banner_config (id, version, channel, 
+      icon, title, status, 
+      insert_time, last_update_time)
+    values (#{id,jdbcType=INTEGER}, #{version,jdbcType=VARCHAR}, #{channel,jdbcType=TINYINT}, 
+      #{icon,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
+      #{insertTime,jdbcType=BIGINT}, #{lastUpdateTime,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.duyun.huishou.housekeeper.po.BannerConfigEntity" >
+    insert into t_banner_config
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="channel != null" >
+        channel,
+      </if>
+      <if test="icon != null" >
+        icon,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="channel != null" >
+        #{channel,jdbcType=TINYINT},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=BIGINT},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.duyun.huishou.housekeeper.po.BannerConfigEntity" >
+    update t_banner_config
+    <set >
+      <if test="version != null" >
+        version = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="channel != null" >
+        channel = #{channel,jdbcType=TINYINT},
+      </if>
+      <if test="icon != null" >
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=BIGINT},
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time = #{lastUpdateTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.duyun.huishou.housekeeper.po.BannerConfigEntity" >
+    update t_banner_config
+    set version = #{version,jdbcType=VARCHAR},
+      channel = #{channel,jdbcType=TINYINT},
+      icon = #{icon,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      insert_time = #{insertTime,jdbcType=BIGINT},
+      last_update_time = #{lastUpdateTime,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!--selectByCondition-->
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.duyun.huishou.housekeeper.po.BannerConfigEntity">
+    select
+    <include refid="Base_Column_List"/>
+    from t_banner_config
+    where
+    1=1
+    <if test="id != null" >
+      and id = #{id,jdbcType=INTEGER}
+    </if>
+    <if test="version != null" >
+      and version = #{version,jdbcType=VARCHAR}
+    </if>
+    <if test="channel != null" >
+      and channel = #{channel,jdbcType=TINYINT}
+    </if>
+    <if test="icon != null" >
+      and icon = #{icon,jdbcType=VARCHAR}
+    </if>
+    <if test="title != null" >
+      and title = #{title,jdbcType=VARCHAR}
+    </if>
+    <if test="status != null" >
+      and status = #{status,jdbcType=TINYINT}
+    </if>
+    <if test="insertTime != null" >
+      and insert_time = #{insertTime,jdbcType=BIGINT}
+    </if>
+    <if test="lastUpdateTime != null" >
+      and last_update_time = #{lastUpdateTime,jdbcType=BIGINT}
+    </if>
+  </select>
+</mapper>

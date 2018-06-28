@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 /**
  * @author
  */
-@ImportResource({"classpath:application-context.xml"})
+@ImportResource({"classpath:app.xml"})
 @SpringBootApplication
 @EnableScheduling
 @EnableTransactionManagement
