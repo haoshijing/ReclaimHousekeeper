@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.duyun.huishou.housekeeper.mapper.PointLogEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.duyun.huishou.housekeeper.po.PointLogEntity" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="before_point" property="beforePoint" jdbcType="INTEGER" />
+    <result column="after_point" property="afterPoint" jdbcType="INTEGER" />
+    <result column="reason" property="reason" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="BIGINT" />
+    <result column="last_update_time" property="lastUpdateTime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, before_point, after_point, reason, insert_time, last_update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_point_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_point_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.duyun.huishou.housekeeper.po.PointLogEntity" >
+    insert into t_point_log (id, user_id, before_point, 
+      after_point, reason, insert_time, 
+      last_update_time)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{beforePoint,jdbcType=INTEGER}, 
+      #{afterPoint,jdbcType=INTEGER}, #{reason,jdbcType=VARCHAR}, #{insertTime,jdbcType=BIGINT}, 
+      #{lastUpdateTime,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.duyun.huishou.housekeeper.po.PointLogEntity" >
+    insert into t_point_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="beforePoint != null" >
+        before_point,
+      </if>
+      <if test="afterPoint != null" >
+        after_point,
+      </if>
+      <if test="reason != null" >
+        reason,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="beforePoint != null" >
+        #{beforePoint,jdbcType=INTEGER},
+      </if>
+      <if test="afterPoint != null" >
+        #{afterPoint,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null" >
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=BIGINT},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.duyun.huishou.housekeeper.po.PointLogEntity" >
+    update t_point_log
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="beforePoint != null" >
+        before_point = #{beforePoint,jdbcType=INTEGER},
+      </if>
+      <if test="afterPoint != null" >
+        after_point = #{afterPoint,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null" >
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=BIGINT},
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time = #{lastUpdateTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.duyun.huishou.housekeeper.po.PointLogEntity" >
+    update t_point_log
+    set user_id = #{userId,jdbcType=INTEGER},
+      before_point = #{beforePoint,jdbcType=INTEGER},
+      after_point = #{afterPoint,jdbcType=INTEGER},
+      reason = #{reason,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=BIGINT},
+      last_update_time = #{lastUpdateTime,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
