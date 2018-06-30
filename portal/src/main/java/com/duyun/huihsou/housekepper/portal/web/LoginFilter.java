@@ -1,22 +1,23 @@
 package com.duyun.huihsou.housekepper.portal.web;
 
-import com.alibaba.fastjson.JSON;
+import com.duyun.huihsou.housekepper.portal.gloabal.GlobalHolder;
 import com.duyun.huihsou.housekepper.portal.inteceptor.VisitorAccessible;
-import com.duyun.huishou.housekeeper.ApiResponse;
-import com.duyun.huishou.housekeeper.constants.RetCode;
+import com.duyun.huihsou.housekepper.portal.service.user.UserService;
+import com.duyun.huishou.housekeeper.po.UserEntity;
+import com.duyun.huishou.housekeeper.util.JWTVerifierUtil;
 import lombok.extern.slf4j.Slf4j;
-import net.sf.json.JSONObject;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
-import static com.duyun.huihsou.housekepper.portal.constants.Constants.TICKET;
+import static com.duyun.huihsou.housekepper.portal.constants.Constants.TOKEN;
 
 
 /**
@@ -30,6 +31,8 @@ import static com.duyun.huihsou.housekepper.portal.constants.Constants.TICKET;
 public class LoginFilter extends HandlerInterceptorAdapter {
 
     @Autowired
+    private UserService userService;
+    @Autowired
     RedisTemplate<String, String> redisTemplate;
 
 
@@ -42,34 +45,36 @@ public class LoginFilter extends HandlerInterceptorAdapter {
             if(annotation!=null){
                 return true;
             }
-            String ticket  = request.getHeader(TICKET);
-            if(StringUtils.isEmpty(ticket)){
-                ApiResponse tokenValidResponse = new ApiResponse(RetCode.TOKEN_VALID, "ticket error", null);
-                response.getWriter().print(JSON.toJSON(tokenValidResponse));
-                return false;
-            }
-            String currentUser = redisTemplate.opsForValue().get(ticket);
-            //黑名单用户
-            JSONObject jsonObject = JSONObject.fromObject(currentUser);
-            Integer uid = jsonObject.getInt("userId");
-            try {
-                if(StringUtils.isEmpty(currentUser)){
-                    ApiResponse tokenValidResponse = new ApiResponse(RetCode.TOKEN_VALID, "ticket expired", null);
-                    response.getWriter().print(JSON.toJSON(tokenValidResponse));
+//            String ticket  = request.getHeader(TICKET);
+//            if(StringUtils.isEmpty(ticket)){
+//                ApiResponse tokenValidResponse = new ApiResponse(RetCode.TOKEN_VALID, "ticket error", null);
+//                response.getWriter().print(JSON.toJSON(tokenValidResponse));
+//                return false;
+//            }
+            String token  = request.getHeader(TOKEN);
+            if (StringUtils.isNotEmpty(token)) {
+                Integer userId = getUserIdFromToken(token);
+                if (userId == null) {
                     return false;
                 }
-
-            } catch (Exception e) {
-                ApiResponse tokenValidResponse = new ApiResponse(RetCode.TOKEN_VALID, "ticket expired", null);
-                response.getWriter().print(JSON.toJSON(tokenValidResponse));
+                UserEntity entity = userService.selectByPrimaryKey(userId);
+                if (entity == null) {
+                    return false;
+                }
+                GlobalHolder.setCurrentLoginUser(entity);
+            } else {
                 return false;
             }
-            request.setAttribute("currentUser", currentUser);
             return true;
         }catch (Exception e){
             log.error("获取凭证失败", e.getMessage());
             return false;
         }
+    }
+    private Integer getUserIdFromToken(String token) {
+        List tokenList = JWTVerifierUtil.verify(token);
+        Integer userId = Integer.valueOf(tokenList.get(2) + "");
+        return userId;
     }
 
 

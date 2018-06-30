@@ -15,9 +15,41 @@ public class UserEntity {
 
     private Integer version;
 
+
+    private String password;
+
+    private String salt;
+
+    private String mobile;
+
     private Long insertTime;
 
     private Long lastUpdateTime;
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
 
     public Integer getId() {
         return id;

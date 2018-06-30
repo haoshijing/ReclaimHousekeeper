@@ -9,4 +9,6 @@ public final  class Constants {
     public static final String TICKET = "ticket";
 
     public static final String PHONE_CODE = "code";
+
+    public static final String TOKEN = "token";
 }

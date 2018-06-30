@@ -9,11 +9,19 @@
     <result column="union_id" property="unionId" jdbcType="VARCHAR" />
     <result column="points" property="points" jdbcType="INTEGER" />
     <result column="version" property="version" jdbcType="INTEGER" />
+
+
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="salt" property="salt" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+
     <result column="insert_time" property="insertTime" jdbcType="BIGINT" />
     <result column="last_update_time" property="lastUpdateTime" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, head_url, balance, open_id, union_id, points, version, insert_time, last_update_time
+
+    id, head_url, balance, open_id, union_id, points, version, password, salt, mobile, insert_time, last_update_time
+
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -28,11 +36,14 @@
   <insert id="insert" parameterType="com.duyun.huishou.housekeeper.po.UserEntity" >
     insert into t_user (id, head_url, balance, 
       open_id, union_id, points, 
-      version, insert_time, last_update_time
+
+      version, password, salt, mobile, insert_time, last_update_time
       )
     values (#{id,jdbcType=INTEGER}, #{headUrl,jdbcType=VARCHAR}, #{balance,jdbcType=INTEGER}, 
       #{openId,jdbcType=VARCHAR}, #{unionId,jdbcType=VARCHAR}, #{points,jdbcType=INTEGER}, 
-      #{version,jdbcType=INTEGER}, #{insertTime,jdbcType=BIGINT}, #{lastUpdateTime,jdbcType=BIGINT}
+      #{version,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR},
+      #{mobile,jdbcType=VARCHAR}, #{insertTime,jdbcType=BIGINT}, #{lastUpdateTime,jdbcType=BIGINT}
+
       )
   </insert>
   <insert id="insertSelective" parameterType="com.duyun.huishou.housekeeper.po.UserEntity" >
@@ -59,6 +70,16 @@
       <if test="version != null" >
         version,
       </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="salt != null" >
+        salt,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+
       <if test="insertTime != null" >
         insert_time,
       </if>
@@ -88,6 +109,18 @@
       <if test="version != null" >
         #{version,jdbcType=INTEGER},
       </if>
+
+
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+
       <if test="insertTime != null" >
         #{insertTime,jdbcType=BIGINT},
       </if>
@@ -117,6 +150,16 @@
       <if test="version != null" >
         version = #{version,jdbcType=INTEGER},
       </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+
       <if test="insertTime != null" >
         insert_time = #{insertTime,jdbcType=BIGINT},
       </if>
@@ -134,8 +177,28 @@
       union_id = #{unionId,jdbcType=VARCHAR},
       points = #{points,jdbcType=INTEGER},
       version = #{version,jdbcType=INTEGER},
+
+      password = #{password,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+
       insert_time = #{insertTime,jdbcType=BIGINT},
       last_update_time = #{lastUpdateTime,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <!-- selectByOpenId -->
+  <select id="selectByOpenId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from t_user
+    where open_id = #{openId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByMobile" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from t_user
+    where mobile = #{mobile,jdbcType=VARCHAR}
+  </select>
 </mapper>

@@ -1,5 +1,12 @@
 package com.duyun.huishou.housekeeper.po;
 
+
+public class NewsEntity {
+
+
+import lombok.Data;
+
+@Data
 public class NewsEntity {
 
     private Integer id;
@@ -8,9 +15,14 @@ public class NewsEntity {
 
     private String content;
 
+
+    private String img;
+
+
     private Byte isTop;
 
     private Long insertTime;
+
 
 
     private Long lastUpdateTime;
@@ -37,6 +49,8 @@ public class NewsEntity {
         setIsTop(isTop);
         setLastUpdateTime(lastUpdateTime);
     }
+
+    private Long lastUpdateTime;
 
     public Integer getId() {
         return id;
@@ -85,5 +99,4 @@ public class NewsEntity {
     public void setLastUpdateTime(Long lastUpdateTime) {
         this.lastUpdateTime = lastUpdateTime;
     }
-
 }
