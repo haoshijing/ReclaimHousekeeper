@@ -74,4 +74,26 @@
             <version>2.0.3</version>
         </dependency>
     </dependencies>
+    <build>
+        <finalName>portal</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!--<jvmArguments>-->
+                    <!-- -Xdebug -Xnoagent -Djava.compiler=NONE -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8011-->
+                    <!--</jvmArguments>-->
+                    <mainClass>com.duyun.huihsou.housekepper.admin.AdminStarter</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
