@@ -67,4 +67,11 @@ public class UserController {
         Boolean result = userService.repwd(params, userEntity);
         return new ApiResponse<>(result);
     }
+
+    @VisitorAccessible
+    @RequestMapping(value = "/verifycode",  method = RequestMethod.POST, produces="application/json")
+    public ApiResponse<Boolean> getVerifyCode() {
+        Boolean result = userService.getVerifyCode();
+        return new ApiResponse<>(result);
+    }
 }

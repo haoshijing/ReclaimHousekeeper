@@ -107,6 +107,13 @@ public class UserServiceImpl extends AbstractBaseService<UserEntity> implements 
         return true;
     }
 
+    @Override
+    public Boolean getVerifyCode() {
+        //TODO 生成验证码，短信推送
+
+        return true;
+    }
+
     private String generateToken(UserEntity userEntity) {
         String token = null;
         try {

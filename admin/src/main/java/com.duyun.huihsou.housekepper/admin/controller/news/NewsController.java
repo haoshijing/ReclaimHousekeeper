@@ -3,15 +3,12 @@ package com.duyun.huihsou.housekepper.admin.controller.news;
 import com.duyun.huihsou.housekepper.admin.inteceptor.VisitorAccessible;
 import com.duyun.huihsou.housekepper.admin.request.BaseParams;
 import com.duyun.huihsou.housekepper.admin.service.news.NewsService;
-import com.duyun.huishou.housekeeper.ApiResponse;
-import com.duyun.huishou.housekeeper.po.CategoryEntity;
 import com.duyun.huishou.housekeeper.po.NewsEntity;
 import com.duyun.huishou.housekeeper.util.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -19,19 +16,19 @@ import java.util.List;
  * @author haoshijing
  * @version 2018年05月08日 21:13
  **/
-@RestController
-@RequestMapping("/h5/api/news")
+@Controller
+@RequestMapping("/admin/api/news")
 public class NewsController {
 
     @Autowired
     private NewsService newsService;
 
     @VisitorAccessible
-    @RequestMapping(value = "/list", method = RequestMethod.POST, produces="application/json")
-    public ApiResponse<List<CategoryEntity>> getList(@RequestBody BaseParams params) {
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public String getList(BaseParams params) {
         List<NewsEntity> list = newsService.getAll(params);
         Integer count = newsService.getNum();
         PageUtils pageUtils = new PageUtils(list,count, params.getPageSize(), params.getPageNo());
-        return new ApiResponse(pageUtils);
+        return "index";
     }
 }

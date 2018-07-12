@@ -23,4 +23,6 @@ public interface UserService extends IBaseService<UserEntity> {
     void register(UserParams params);
 
     Boolean repwd(UserParams params, UserEntity userEntity);
+
+    Boolean getVerifyCode();
 }
