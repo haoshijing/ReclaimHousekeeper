@@ -66,19 +66,24 @@
 <script type="text/javascript" th:src="@{/h-ui/js/H-ui.min.js}"></script>
 <script type="text/javascript" th:src="@{/h-ui.admin/js/H-ui.admin.js}"></script>
 
-<script>
+<script type="text/javascript" th:inline="javascript">
     function formSubmit(){
 
         $.ajax({
             url:[["checklogin"]],
             type: "POST",
+            dataType:"json",
             contentType: 'application/json',
             data: JSON.stringify({name : $("#name").val(),passWord : $("#passWord").val(), verifyCode: $("#verifyCode").val()}),
             success:function(data){
-                if (data!=null &amp; data.token!=null){
+                console.log(data['token'])
+                debugger
+                /*<![CDATA[*/
+                if (data!=null&&data.token!=null){
                     window.location.href = 'index'
                 }
-
+                /*]]>*/
+                console.log(data)
             },
             error:function(e){
 
