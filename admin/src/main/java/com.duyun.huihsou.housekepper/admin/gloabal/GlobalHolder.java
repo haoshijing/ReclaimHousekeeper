@@ -1,19 +1,19 @@
 package com.duyun.huihsou.housekepper.admin.gloabal;
 
-import com.duyun.huishou.housekeeper.po.UserEntity;
+import com.duyun.huishou.housekeeper.po.SysUserEntity;
 
 /**
  * Created by fq_qiguo on 2017/5/18.
  */
 public class GlobalHolder {
 
-    private static ThreadLocal<UserEntity> currentLoginUser = new ThreadLocal<UserEntity>();
+    private static ThreadLocal<SysUserEntity> currentLoginUser = new ThreadLocal<SysUserEntity>();
 
-    public static UserEntity getCurrentLoginUser() {
+    public static SysUserEntity getCurrentLoginUser() {
         return currentLoginUser.get();
     }
 
-    public static void setCurrentLoginUser(UserEntity user) {
+    public static void setCurrentLoginUser(SysUserEntity user) {
         currentLoginUser.set(user);
     }
 

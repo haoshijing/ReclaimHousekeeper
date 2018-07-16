@@ -76,21 +76,19 @@
             contentType: 'application/json',
             data: JSON.stringify({name : $("#name").val(),passWord : $("#passWord").val(), verifyCode: $("#verifyCode").val()}),
             success:function(data){
-                console.log(data['token'])
-                debugger
-                /*<![CDATA[*/
-                if (data!=null&&data.token!=null){
+                if (data) {
                     window.location.href = 'index'
+                } else {
+
                 }
-                /*]]>*/
-                console.log(data)
             },
             error:function(e){
 
-                window.clearInterval(timer);
+                window.clearInterval("登录失败");
             }
         });
-    }
+    };
+
 </script>
 </body>
 </html>

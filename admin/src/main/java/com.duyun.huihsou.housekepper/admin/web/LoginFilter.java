@@ -3,8 +3,10 @@ package com.duyun.huihsou.housekepper.admin.web;
 import com.alibaba.fastjson.JSON;
 import com.duyun.huihsou.housekepper.admin.gloabal.GlobalHolder;
 import com.duyun.huihsou.housekepper.admin.inteceptor.VisitorAccessible;
+import com.duyun.huihsou.housekepper.admin.service.sysuser.SysUserService;
 import com.duyun.huishou.housekeeper.ApiResponse;
 import com.duyun.huishou.housekeeper.constants.RetCode;
+import com.duyun.huishou.housekeeper.po.SysUserEntity;
 import com.duyun.huishou.housekeeper.util.JWTVerifierUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -14,8 +16,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.duyun.huihsou.housekepper.admin.constants.Constants.TOKEN;
@@ -33,8 +37,8 @@ import static com.duyun.huihsou.housekepper.admin.constants.Constants.TOKEN;
 @Component
 public class LoginFilter extends HandlerInterceptorAdapter {
 
-//    @Autowired
-//    private UserService userService;
+    @Autowired
+    private SysUserService sysUserService;
     @Autowired
     RedisTemplate<String, String> redisTemplate;
 
@@ -48,23 +52,24 @@ public class LoginFilter extends HandlerInterceptorAdapter {
             if(annotation!=null){
                 return true;
             }
-//            String ticket  = request.getHeader(TICKET);
-//            if(StringUtils.isEmpty(ticket)){
-//                ApiResponse tokenValidResponse = new ApiResponse(RetCode.TOKEN_VALID, "ticket error", null);
-//                response.getWriter().print(JSON.toJSON(tokenValidResponse));
-//                return false;
-//            }
-            String token  = request.getHeader(TOKEN);
+            Cookie[] cookies = request.getCookies();
+            List<Cookie> list= Arrays.asList(cookies);
+            String token  = null;
+            for (Cookie c:list) {
+                if (TOKEN.equals(c.getName())) {
+                    token = c.getValue();
+                }
+            }
             if (StringUtils.isNotEmpty(token)) {
                 Integer userId = getUserIdFromToken(token);
                 if (userId == null) {
                     return false;
                 }
-//                UserEntity entity = userService.selectByPrimaryKey(userId);
-//                if (entity == null) {
-//                    return false;
-//                }
-//                GlobalHolder.setCurrentLoginUser(entity);
+                SysUserEntity entity = sysUserService.selectByPrimaryKey(userId);
+                if (entity == null) {
+                    return false;
+                }
+                GlobalHolder.setCurrentLoginUser(entity);
             } else {
                 ApiResponse tokenValidResponse = new ApiResponse(RetCode.TOKEN_VALID, "ticket error", null);
                 response.getWriter().print(JSON.toJSON(tokenValidResponse));
