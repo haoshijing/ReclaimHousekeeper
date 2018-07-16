@@ -1,10 +1,12 @@
 package com.duyun.huihsou.housekepper.admin.request;
 
+import java.io.Serializable;
+
 /**
  * 基础请求参数
  */
 
-public class BaseParams {
+public class BaseParams implements Serializable {
 
     /**
      * 分页参数
