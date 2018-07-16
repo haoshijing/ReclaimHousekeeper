@@ -16,7 +16,7 @@ public class UserController {
 //
 //    @VisitorAccessible
 //    @RequestMapping(value = "/login",  method = RequestMethod.POST, produces="application/json")
-//    public ApiResponse<String> login(@RequestBody UserParams params) {
+//    public ApiResponse<String> login(@RequestBody AdminUserParams params) {
 //        if (params.getMobile()==null||params.getPassword()==null) {
 //            return  new ApiResponse(RetCode.ERROR_PARAMS, "必填参数不能为空！");
 //        } else if (!MobileUtil.isMobile(params.getMobile())) {
@@ -28,7 +28,7 @@ public class UserController {
 //
 //    @VisitorAccessible
 //    @RequestMapping(value = "/register", method = RequestMethod.POST, produces="application/json")
-//    public ApiResponse<Boolean> register(@RequestBody UserParams params) {
+//    public ApiResponse<Boolean> register(@RequestBody AdminUserParams params) {
 //        if (params.getMobile()==null||params.getNewPwd1()==null||params.getNewPwd2()==null
 //                ||params.getVerifyCode()==null) {
 //            return  new ApiResponse(RetCode.ERROR_PARAMS, "必填参数不能为空！");
@@ -45,7 +45,7 @@ public class UserController {
 //     * @return
 //     */
 //    @RequestMapping(value = "/repwd", method = RequestMethod.POST, produces="application/json")
-//    public ApiResponse<Boolean> repwd(@RequestBody UserParams params) {
+//    public ApiResponse<Boolean> repwd(@RequestBody AdminUserParams params) {
 //        if (params.getMobile()==null||params.getNewPwd1()==null||params.getNewPwd2()==null
 //                ||params.getVerifyCode()==null) {
 //            return  new ApiResponse(RetCode.ERROR_PARAMS, "必填参数不能为空！");

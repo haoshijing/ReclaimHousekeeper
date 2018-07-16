@@ -86,6 +86,8 @@ public class UserServiceImpl extends AbstractBaseService<UserEntity> implements 
         userEntity.setSalt(salt);
         userEntity.setPassword(password);
         userEntity.setOpenId(params.getOpenId());
+        userEntity.setInsertTime(System.currentTimeMillis());
+        userEntity.setLastUpdateTime(System.currentTimeMillis());
         userMapper.insert(userEntity);
     }
 

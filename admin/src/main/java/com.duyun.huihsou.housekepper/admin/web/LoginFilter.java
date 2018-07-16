@@ -3,10 +3,8 @@ package com.duyun.huihsou.housekepper.admin.web;
 import com.alibaba.fastjson.JSON;
 import com.duyun.huihsou.housekepper.admin.gloabal.GlobalHolder;
 import com.duyun.huihsou.housekepper.admin.inteceptor.VisitorAccessible;
-import com.duyun.huihsou.housekepper.admin.service.user.UserService;
 import com.duyun.huishou.housekeeper.ApiResponse;
 import com.duyun.huishou.housekeeper.constants.RetCode;
-import com.duyun.huishou.housekeeper.po.UserEntity;
 import com.duyun.huishou.housekeeper.util.JWTVerifierUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -22,6 +20,8 @@ import java.util.List;
 
 import static com.duyun.huihsou.housekepper.admin.constants.Constants.TOKEN;
 
+//import com.duyun.huihsou.housekepper.admin.service.user.UserService;
+
 
 /**
  * @author albert
@@ -33,8 +33,8 @@ import static com.duyun.huihsou.housekepper.admin.constants.Constants.TOKEN;
 @Component
 public class LoginFilter extends HandlerInterceptorAdapter {
 
-    @Autowired
-    private UserService userService;
+//    @Autowired
+//    private UserService userService;
     @Autowired
     RedisTemplate<String, String> redisTemplate;
 
@@ -60,11 +60,11 @@ public class LoginFilter extends HandlerInterceptorAdapter {
                 if (userId == null) {
                     return false;
                 }
-                UserEntity entity = userService.selectByPrimaryKey(userId);
-                if (entity == null) {
-                    return false;
-                }
-                GlobalHolder.setCurrentLoginUser(entity);
+//                UserEntity entity = userService.selectByPrimaryKey(userId);
+//                if (entity == null) {
+//                    return false;
+//                }
+//                GlobalHolder.setCurrentLoginUser(entity);
             } else {
                 ApiResponse tokenValidResponse = new ApiResponse(RetCode.TOKEN_VALID, "ticket error", null);
                 response.getWriter().print(JSON.toJSON(tokenValidResponse));
