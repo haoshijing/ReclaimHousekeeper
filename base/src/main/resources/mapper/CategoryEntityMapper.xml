@@ -134,4 +134,20 @@
     from t_category
     where parent_id = #{parentId,jdbcType=INTEGER}
   </select>
+  <!--findByParams-->
+  <select id="findByParams" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_category
+    order by insert_time desc
+    <if test="pageNo != null and pageSize != null">
+      limit #{pageNo},#{pageSize}
+    </if>
+  </select>
+  <!--getCount-->
+  <select id="getCount" resultType="java.lang.Integer">
+    select
+    count(id)
+    from t_category
+  </select>
 </mapper>

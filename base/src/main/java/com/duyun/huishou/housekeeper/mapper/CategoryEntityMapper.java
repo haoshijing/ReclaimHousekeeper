@@ -33,5 +33,7 @@ public interface CategoryEntityMapper extends IBaseDao<CategoryEntity>{
     Integer getCountFromParent(Integer id);
 
 
+    List<CategoryEntity> findByParams(Map<String, Object> map);
 
+    Integer getCount();
 }

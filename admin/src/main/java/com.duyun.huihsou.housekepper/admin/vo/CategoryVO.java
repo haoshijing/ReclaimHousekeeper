@@ -1,5 +1,7 @@
 package com.duyun.huihsou.housekepper.admin.vo;
 
+import java.math.BigDecimal;
+
 public class CategoryVO {
     private Integer id;
 
@@ -7,7 +9,17 @@ public class CategoryVO {
 
     private String icon;
 
+    private BigDecimal price;
+
     private Byte categoryType;
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
 
     public Integer getId() {
         return id;
