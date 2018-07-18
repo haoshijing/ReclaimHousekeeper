@@ -22,9 +22,9 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.duyun.huishou.housekeeper.po.ProblemEntity" >
-    insert into t_problem (id, name, answer, 
+    insert into t_problem (name, answer,
       insert_time, last_update_time)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR}, 
+    values (#{name,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR},
       #{insertTime,jdbcType=BIGINT}, #{lastUpdateTime,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.duyun.huishou.housekeeper.po.ProblemEntity" >

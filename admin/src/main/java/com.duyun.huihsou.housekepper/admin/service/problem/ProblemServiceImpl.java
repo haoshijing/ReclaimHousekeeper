@@ -3,6 +3,7 @@ package com.duyun.huihsou.housekepper.admin.service.problem;
 
 import com.duyun.huihsou.housekepper.admin.request.BaseParams;
 import com.duyun.huihsou.housekepper.admin.service.AbstractBaseService;
+import com.duyun.huihsou.housekepper.admin.vo.ProblemVO;
 import com.duyun.huishou.housekeeper.mapper.IBaseDao;
 import com.duyun.huishou.housekeeper.mapper.ProblemEntityMapper;
 import com.duyun.huishou.housekeeper.po.ProblemEntity;
@@ -41,4 +42,15 @@ public class ProblemServiceImpl extends AbstractBaseService<ProblemEntity> imple
         map.put("pageSize",params.getPageSize() * params.getPageNo());
         return problemEntityMapper.selectAll(map);
     }
+
+    @Override
+    public void addProblem(ProblemVO problemVO) {
+        ProblemEntity problemEntity = new ProblemEntity();
+        problemEntity.setName(problemVO.getName());
+        problemEntity.setAnswer(problemVO.getAnswer());
+        problemEntity.setInsertTime(System.currentTimeMillis());
+        problemEntity.setLastUpdateTime(System.currentTimeMillis());
+        problemEntityMapper.insert(problemEntity);
+    }
+
 }
