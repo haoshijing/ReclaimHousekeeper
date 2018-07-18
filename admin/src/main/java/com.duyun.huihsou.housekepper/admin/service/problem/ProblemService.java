@@ -16,6 +16,7 @@ import java.util.List;
  */
 public interface ProblemService extends IBaseService<ProblemEntity> {
 
+    List<ProblemEntity> getAll();
     List<ProblemEntity> getAll(BaseParams params);
 
     void addProblem(ProblemVO problemVO);

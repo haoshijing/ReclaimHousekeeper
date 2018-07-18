@@ -100,4 +100,7 @@
       limit #{pageNo},#{pageSize}
     </if>
   </select>
+  <select id="getAll"  resultMap="BaseResultMap">
+    SELECT * FROM t_problem
+  </select>
 </mapper>

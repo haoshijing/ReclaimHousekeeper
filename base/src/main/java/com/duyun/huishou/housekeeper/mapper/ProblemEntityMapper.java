@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface ProblemEntityMapper extends IBaseDao<ProblemEntity>{
+    List<ProblemEntity> getAll();
 
     List<ProblemEntity> selectAll(Map<String,Object> map);
 

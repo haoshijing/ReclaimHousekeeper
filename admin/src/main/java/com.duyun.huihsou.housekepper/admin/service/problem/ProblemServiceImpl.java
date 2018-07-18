@@ -36,12 +36,18 @@ public class ProblemServiceImpl extends AbstractBaseService<ProblemEntity> imple
     }
 
     @Override
+    public List<ProblemEntity> getAll() {
+        return problemEntityMapper.getAll();
+    }
+
+    @Override
     public List<ProblemEntity> getAll(BaseParams params) {
         Map<String, Object> map = new HashMap<>();
         map.put("pageNo",params.getPageNo() - 1);
         map.put("pageSize",params.getPageSize() * params.getPageNo());
         return problemEntityMapper.selectAll(map);
     }
+
 
     @Override
     public void addProblem(ProblemVO problemVO) {
