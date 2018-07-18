@@ -2,6 +2,7 @@ package com.duyun.huishou.housekeeper.mapper;
 
 import com.duyun.huishou.housekeeper.po.CategoryEntity;
 import com.duyun.huishou.housekeeper.po.category.category;
+import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public interface CategoryEntityMapper extends IBaseDao<CategoryEntity>{
     Integer getCountFromParent(Integer id);
 
 
-    List<CategoryEntity> findByParams(Map<String, Object> map);
+    Page<CategoryEntity> findByParams();
 
     Integer getCount();
 }
