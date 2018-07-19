@@ -53,6 +53,8 @@
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" th:src="@{/lib/jquery.contextmenu/jquery.contextmenu.r2.js}"></script>
 
+<script type="text/javascript" th:src="@{/lib/jquery.validation/1.14.0/jquery.validate.js}"></script>
+<script type="text/javascript" th:src="@{/lib/jquery.validation/1.14.0/validate-methods.js}"></script>
 
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" th:src="@{/lib/My97DatePicker/4.8/WdatePicker.js}"></script>
@@ -60,30 +62,18 @@
 <script type="text/javascript" th:src="@{/lib/laypage/1.2/laypage.js}"></script>
 <script type="text/javascript">
 $(function(){
-	$('.skin-minimal input').iCheck({
-		checkboxClass: 'icheckbox-blue',
-		radioClass: 'iradio-blue',
-		increaseArea: '20%'
-	});
 	
 	//表单验证
 	$("#form-problem-add").validate({
-		rules:{
-			articletitle:{
-				required:true,
-			},
-			articletitle2:{
-				required:true,
-			}
-
-		},
 		onkeyup:false,
 		focusCleanup:true,
 		success:"valid",
 		submitHandler:function(form){
+		    debugger
 			$(form).ajaxSubmit(function (res) {
 				if (res == 'ok') {
-                    parent.layer.close(index);
+                    parent.location.reload();
+                    layer_close();
 				}else {
                     console.log(res);
 				}
