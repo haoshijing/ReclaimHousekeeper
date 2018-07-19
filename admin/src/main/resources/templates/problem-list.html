@@ -36,7 +36,7 @@
 		<button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜资讯</button>
 	</div>
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">
-		<a class="btn btn-primary radius" data-title="添加问题" data-href="/admin/problem/add" onclick="Hui_admin_tab(this)" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加问题</a></span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
+		<a class="btn btn-primary radius" data-title="添加问题" onclick="add('新增','/admin/problem/add')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加问题</a></span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
 			<thead>
@@ -127,7 +127,7 @@
     });
 
 /*资讯-添加*/
-function article_add(title,url,w,h){
+function add(title,url,w,h){
 	var index = layer.open({
 		type: 2,
 		title: title,
