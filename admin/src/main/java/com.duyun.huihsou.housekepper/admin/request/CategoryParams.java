@@ -1,8 +1,9 @@
 package com.duyun.huihsou.housekepper.admin.request;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class CategoryParams {
+public class CategoryParams implements Serializable {
     private Integer id;
 
     private String name;
