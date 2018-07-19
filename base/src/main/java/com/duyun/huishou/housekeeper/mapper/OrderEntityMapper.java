@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface OrderEntityMapper extends IBaseDao<OrderEntity>{
     List<OrderDTO> getOrderInfo(@Param("userId") Integer userId, @Param("orderStatus")Integer orderStatus);
+
+    List<OrderEntity> getList();
 }

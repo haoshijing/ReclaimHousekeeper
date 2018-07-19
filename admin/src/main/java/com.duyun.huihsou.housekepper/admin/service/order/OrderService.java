@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface OrderService extends IBaseService<OrderEntity> {
     List<OrderVO> getOrderInfo(Integer id, Integer orderStatus);
+
+    List<OrderEntity> getList();
 }

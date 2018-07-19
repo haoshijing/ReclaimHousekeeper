@@ -43,6 +43,11 @@ public class OrderServiceImpl extends AbstractBaseService<OrderEntity> implement
         return list;
     }
 
+    @Override
+    public List<OrderEntity> getList() {
+        return orderEntityMapper.getList();
+    }
+
     private void getAttributeDetailList(OrderVO vo, String attributeDetailIds) {
         String[] attributeDetailArr = attributeDetailIds.split(",");
         if (attributeDetailArr.length <= 0) {
