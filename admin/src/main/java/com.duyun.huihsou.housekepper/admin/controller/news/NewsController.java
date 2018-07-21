@@ -7,6 +7,7 @@ import com.duyun.huishou.housekeeper.po.NewsEntity;
 import com.duyun.huishou.housekeeper.util.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -17,7 +18,7 @@ import java.util.List;
  * @version 2018年05月08日 21:13
  **/
 @Controller
-@RequestMapping("/admin/api/news")
+@RequestMapping("/news")
 public class NewsController {
 
     @Autowired
@@ -30,5 +31,13 @@ public class NewsController {
         Integer count = newsService.getNum();
         PageUtils pageUtils = new PageUtils(list,count, params.getPageSize(), params.getPageNo());
         return "index";
+    }
+
+    @VisitorAccessible
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    public String index(Model model) {
+        NewsEntity entity = new NewsEntity();
+        model.addAttribute("entity", entity);
+        return "article-add";
     }
 }

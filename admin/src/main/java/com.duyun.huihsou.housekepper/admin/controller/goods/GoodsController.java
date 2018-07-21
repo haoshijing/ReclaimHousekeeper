@@ -59,6 +59,14 @@ public class GoodsController {
     }
 
     @VisitorAccessible
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public String add( Model model) {
+        CategoryEntity entity = new CategoryEntity();
+        model.addAttribute("entity", entity);
+        return "product-add";
+    }
+
+    @VisitorAccessible
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
     public String save(CategoryParams params) {
