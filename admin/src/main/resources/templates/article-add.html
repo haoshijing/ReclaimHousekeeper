@@ -66,7 +66,6 @@
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
 				<button onClick="article_save_submit();" class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存并提交审核</button>
-				<button onClick="article_save();" class="btn btn-secondary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存草稿</button>
 				<button onClick="removeIframe();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
 			</div>
 		</div>
@@ -166,6 +165,8 @@ $(function(){
 
 // 文件上传成功，给item添加成功class, 用样式标记上传成功。
 	uploader.on( 'uploadSuccess', function( file ,response) {
+	    console.log(file);
+	    console.log(response);
 		$( '#img' ).attr("src",response);
 		$( '#icon' ).attr("value",response);
 		$( '#'+file.id ).addClass('upload-state-done');
@@ -190,6 +191,8 @@ $(function(){
 		$( '#'+file.id ).find('.progress').remove();
 	});
 	var ue = UE.getEditor('editor');
+
+
 });
 $(function(){
 
@@ -199,13 +202,11 @@ $(function(){
 		focusCleanup:true,
 		success:"valid",
 		submitHandler:function(form){
-			$(form).ajaxSubmit(function (res) {
-				debugger
-				if (res == 'ok') {
-					parent.location.reload();
-					layer_close();
-				}else {
-					console.log(res);
+			$.ajax({
+				url:"/admin/article/add",
+				type:"post",
+				data:{
+
 				}
 			});
 		}
