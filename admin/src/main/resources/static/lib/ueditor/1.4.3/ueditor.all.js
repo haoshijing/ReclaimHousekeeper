@@ -8059,7 +8059,6 @@ UE.Editor.defaultOptions = function(editor){
         setTimeout(function(){
             try{
                 me.options.imageUrl && me.setOpt('serverUrl', me.options.imageUrl.replace(/^(.*[\/]).+([\.].+)$/, '$1controller$2'));
-debugger
                 var configUrl = me.getActionUrl('config'),
                     isJsonp = utils.isCrossDomainUrl(configUrl);
 
@@ -29315,7 +29314,6 @@ UE.ui = baidu.editor.ui = {};
     UE.getEditor = function (id, opt) {
         var editor = instances[id];
         if (!editor) {
-            debugger
             editor = instances[id] = new UE.ui.Editor(opt);
             editor.render(id);
         }

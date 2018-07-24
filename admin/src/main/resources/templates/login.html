@@ -74,7 +74,10 @@
             type: "POST",
             dataType:"json",
             contentType: 'application/json',
-            data: JSON.stringify({name : $("#name").val(),passWord : $("#passWord").val(), verifyCode: $("#verifyCode").val()}),
+            data: JSON.stringify({
+                name : $("#name").val(),
+                passWord : $("#passWord").val(),
+                verifyCode: $("#verifyCode").val()}),
             success:function(data){
                 if (data) {
                     window.location.href = 'index'

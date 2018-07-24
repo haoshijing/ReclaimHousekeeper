@@ -54,6 +54,36 @@ public class NewsEntity {
 
     private Long lastUpdateTime;
 
+    private Integer type;
+
+    private String newsDate;
+
+    private String newsAuther;
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public String getNewsDate() {
+        return newsDate;
+    }
+
+    public void setNewsDate(String newsDate) {
+        this.newsDate = newsDate;
+    }
+
+    public String getNewsAuther() {
+        return newsAuther;
+    }
+
+    public void setNewsAuther(String newsAuther) {
+        this.newsAuther = newsAuther;
+    }
+
     public Integer getId() {
         return id;
     }

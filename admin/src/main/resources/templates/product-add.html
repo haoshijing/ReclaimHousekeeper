@@ -196,7 +196,6 @@ $(function(){
         success:"valid",
         submitHandler:function(form){
             $(form).ajaxSubmit(function (res) {
-                debugger
                 if (res == 'ok') {
                     parent.location.reload();
                     layer_close();

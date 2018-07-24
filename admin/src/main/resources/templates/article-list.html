@@ -16,30 +16,35 @@
 	<script type="text/javascript" th:src="@{/lib/DD_belatedPNG_0.0.8a-min.js}" ></script>
 	<script>DD_belatedPNG.fix('*');</script>
 
-	<title>成员列表</title>
+	<title>产品列表</title>
 </head>
 <body>
 <nav class="breadcrumb">
 	<i class="Hui-iconfont">&#xe67f;</i>首页
-	<span class="c-gray en">&gt;</span> 成员管理
-	<span class="c-gray en">&gt;</span> 成员列表
+	<span class="c-gray en">&gt;</span> 资讯管理
+	<span class="c-gray en">&gt;</span> 资讯列表
 	<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
 		<i class="Hui-iconfont">&#xe68f;</i>
 	</a>
 </nav>
 <div class="page-container">
 
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">
+		<a class="btn btn-primary radius" data-title="添加资讯" onclick="add('新增','/admin/news/add')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加资讯</a></span> </div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-bg table-sort">
 			<thead>
-			<tr class="text-c">
-				<th width="25"><input type="checkbox" name="" value="" /></th>
-				<th width="70">ID</th>
-				<th width="80">手机号</th>
-				<th width="200">余额</th>
-				<th width="120">积分</th>
-				<th width="100">操作</th>
-			</tr>
+				<tr class="text-c">
+					<th width="25"><input type="checkbox" name="" value="" /></th>
+					<th width="70">ID</th>
+					<th width="80">资讯标题</th>
+					<th width="80">资讯类型</th>
+					<th width="80">资讯作者</th>
+					<th width="80">是否热点资讯</th>
+					<th width="100">资讯图片</th>
+					<th width="80">资讯日期</th>
+					<th width="100">操作</th>
+				</tr>
 			</thead>
 		</table>
 	</div>
@@ -93,13 +98,24 @@
                     }
                 },
                 { "data": "id" },
-                { "data": "mobile" ,"bSortable": false},
-                { "data": "balance" ,"bSortable": false},
-                { "data": "points" ,"bSortable": false},
-
+                { "data": "title" ,"bSortable": false},
+                { "data": "type" ,"bSortable": false},
+                { "data": "newsAuther" ,"bSortable": false},
+                { "data": "isTop" ,"bSortable": false,
+                    "render": function ( data, type, full, meta ) {
+                        return data==1?'<span>是</span>':'<span>否</span>'
+                    }
+				},
+                { "data": "img",
+                    "bSortable": false,
+                    "render": function ( data, type, full, meta ) {
+                        return '<img src="'+ data +'"/>';
+                    }
+                },
+                { "data": "newsDate", "bSortable": false},
                 { "data":  null,"bSortable": false,
                     "render": function (data, type,row) {
-                        var tem = '<a title="编辑" href="javascript:;" onclick="edit(\'编辑\',\'/admin/member/edit\',\''+ data.id +'\',\'800\',\'500\')" class="ml-5" style="text-decoration:none">'
+                        var tem = '<a title="编辑" href="javascript:;" onclick="edit(\'编辑\',\'/admin/news/edit\',\''+ data.id +'\',\'800\',\'500\')" class="ml-5" style="text-decoration:none">'
                             + '<i class="Hui-iconfont">&#xe6df;</i></a>'+
                             '<a title="删除" href="javascript:;" onclick="del(this,\''+data.id+'\')" class="ml-5" style="text-decoration:none">'
                             + '<i class="Hui-iconfont">&#xe6e2;</i></a>';
@@ -109,32 +125,41 @@
             ],
         });
     });
-    /*资讯-编辑*/
-    function edit(title,url,id,w,h){
-        var index = layer.open({
-            type: 2,
-            title: title,
-            content: url + "/" + id
-        });
-        layer.full(index);
-    }
-    function del(obj,id) {
-        layer.confirm('确认要删除吗？', function (index) {
-            $.ajax({
-                type: 'POST',
-                url: '/admin/member/delete/' + id,
-                dataType: 'json',
-                success: function (data) {
-                    $(obj).parents("tr").remove();
-                    layer.msg('已删除!', {icon: 1, time: 1000});
-                    return;
-                },
-                error: function (data) {
-                    console.log(data.msg);
-                },
-            });
-        });
-    }
+/*资讯-编辑*/
+function add(title,url){
+	var index = layer.open({
+		type: 2,
+		title: title,
+		content: url
+	});
+	layer.full(index);
+}
+/*资讯-编辑*/
+function edit(title,url,id,w,h){
+	var index = layer.open({
+		type: 2,
+		title: title,
+		content: url + "/" + id
+	});
+	layer.full(index);
+}
+function del(obj,id) {
+	layer.confirm('确认要删除吗？', function (index) {
+		$.ajax({
+			type: 'POST',
+			url: '/admin/news/delete/' + id,
+			dataType: 'json',
+			success: function (data) {
+				$(obj).parents("tr").remove();
+				layer.msg('已删除!', {icon: 1, time: 1000});
+				return;
+			},
+			error: function (data) {
+				console.log(data.msg);
+			},
+		});
+	});
+}
 </script>
 </body>
 </html>

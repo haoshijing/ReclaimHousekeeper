@@ -72,7 +72,7 @@ public class MemberController {
             userService.insert(entity);
         }
 
-        return "ok";
+        return JSONObject.toJSONString(true);
     }
 
     @VisitorAccessible
@@ -83,9 +83,9 @@ public class MemberController {
             userService.deleteByPrimaryKey(id);
         }catch (Exception e) {
             logger.error(e.getMessage());
-            return "error";
+            return JSONObject.toJSONString("error");
         }
 
-        return "ok";
+        return JSONObject.toJSONString("ok");
     }
 }

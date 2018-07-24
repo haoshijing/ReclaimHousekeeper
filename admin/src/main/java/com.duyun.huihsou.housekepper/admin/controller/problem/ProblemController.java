@@ -62,9 +62,9 @@ public class ProblemController {
             problemService.addProblem(problemVO);
         }catch (Exception e) {
             logger.error(e.getMessage());
-            return "error";
+            return JSONObject.toJSONString("error");
         }
-        return "ok";
+        return JSONObject.toJSONString("ok");
     }
 
     @VisitorAccessible
@@ -75,9 +75,9 @@ public class ProblemController {
             problemService.deleteByPrimaryKey(id);
         }catch (Exception e) {
             logger.error(e.getMessage());
-            return "error";
+            return JSONObject.toJSONString("error");
         }
-        return "ok";
+        return JSONObject.toJSONString("ok");
     }
 
     @VisitorAccessible
@@ -97,6 +97,6 @@ public class ProblemController {
         problemEntity.setName(problemVO.getName());
         problemEntity.setAnswer(problemVO.getAnswer());
         problemService.updateByPrimaryKeySelective(problemEntity);
-        return "ok";
+        return JSONObject.toJSONString("ok");
     }
 }

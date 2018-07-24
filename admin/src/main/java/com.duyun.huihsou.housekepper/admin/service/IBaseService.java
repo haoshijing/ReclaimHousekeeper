@@ -11,6 +11,8 @@ public interface IBaseService<T> {
 
     int insert(T entity);
 
+    int insertSelective(T entity);
+
     int updateByPrimaryKeySelective(T entity);
 
     int deleteByPrimaryKey(Integer id);

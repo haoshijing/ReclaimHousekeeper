@@ -30,7 +30,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/order")
 public class OrderController {
-    private Logger logger = LoggerFactory.getLogger(GoodsController.class);
+    private Logger logger = LoggerFactory.getLogger(OrderController.class);
 
     @Autowired
     private OrderService orderService;

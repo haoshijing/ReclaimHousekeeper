@@ -90,7 +90,7 @@ public class GoodsController {
             categoryService.deleteByPrimaryKey(id);
         }catch (Exception e) {
             logger.error(e.getMessage());
-            return "error";
+            return JSONObject.toJSONString("error");
         }
 
         return JSONObject.toJSONString("ok");

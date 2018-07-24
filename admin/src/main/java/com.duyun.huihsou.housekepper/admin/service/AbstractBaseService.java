@@ -26,6 +26,10 @@ public abstract class AbstractBaseService<T> implements IBaseService<T> {
         return this.getMapper().insert(entity);
     }
 
+    @Override
+    public int insertSelective(T entity) {
+        return this.getMapper().insertSelective(entity);
+    }
 
     @Override
     public int deleteByPrimaryKey(Integer id) {
