@@ -15,14 +15,15 @@ import com.baidu.ueditor.define.State;
 
 public class FileManager {
 
+	private String serverContext ;
 	private String dir = null;
 	private String rootPath = null;
 	private String[] allowFiles = null;
 	private int count = 0;
 	
-	public FileManager ( Map<String, Object> conf ) {
-
-		this.rootPath = (String)conf.get( "rootPath" );
+	public FileManager ( String serverContext, Map<String, Object> conf ) {
+		this.serverContext = serverContext;
+		this.rootPath = (String)conf.get( "basePath" );
 		this.dir = this.rootPath + (String)conf.get( "dir" );
 		this.allowFiles = this.getAllowFiles( conf.get("allowFiles") );
 		this.count = (Integer)conf.get( "count" );
@@ -83,7 +84,7 @@ public class FileManager {
 		
 		String path = file.getAbsolutePath();
 		
-		return path.replace( this.rootPath, "/" );
+		return path.replace( new File(this.rootPath).getPath(), serverContext+"/" );
 		
 	}
 	

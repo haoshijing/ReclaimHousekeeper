@@ -32,7 +32,7 @@ public class ActionEnter {
 		this.configManager = ConfigManager.getInstance( this.rootPath, this.contextPath, request.getRequestURI() );
 		
 	}
-	
+
 	public String exec () {
 		
 		String callbackName = this.request.getParameter("callback");
@@ -90,7 +90,7 @@ public class ActionEnter {
 			case ActionMap.LIST_FILE:
 				conf = configManager.getConfig( actionCode );
 				int start = this.getStartIndex();
-				state = new FileManager( conf ).listFile( start );
+				state = new FileManager(request.getContextPath() ,conf ).listFile( start );
 				break;
 				
 		}
