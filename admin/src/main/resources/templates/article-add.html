@@ -73,13 +73,13 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">资讯内容：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<script id="editor" type="text/plain" style="width:100%;height:400px;" th:value="${entity.content}" name="content"></script></div>
+				<script id="editor" type="text/plain" style="width:100%;height:400px;" name="content"></script></div>
 		</div>
 
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">资讯日期：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" th:value="${entity.newsDate}" onclick="WdatePicker({ dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'#F{$dp.$D(\'commentdatemax\')||\'%y-%M-%d\'}' })" id="newsDate" name="newsDate" class="input-text Wdate"/>
+				<input type="text" th:value="${entity.newsDate}" onfocus="WdatePicker()" id="newsDate" name="newsDate" class="input-text Wdate"/>
 			</div>
 		</div>
 
@@ -243,13 +243,20 @@ function formArticleAdd(){
         }
     });
 };
-$(function(){
-
-
-
-});
 
 /*]]>*/
+</script>
+<script th:inline="javascript">
+    $(function(){
+        var ue = UE.getEditor('editor');
+        var content = [[${entity.content}]];
+        //判断ueditor 编辑器是否创建成功
+        ue.addListener("ready", function () {
+            // editor准备好之后才可以使用
+            ue.setContent(content);
+
+        });
+    });
 </script>
 </body>
 </html>
