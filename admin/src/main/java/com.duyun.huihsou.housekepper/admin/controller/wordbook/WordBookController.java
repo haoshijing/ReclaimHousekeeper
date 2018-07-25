@@ -1,11 +1,20 @@
-package com.duyun.huihsou.housekepper.admin.controller.goods;
+package com.duyun.huihsou.housekepper.admin.controller.wordbook;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.duyun.huihsou.housekepper.admin.controller.member.MemberController;
 import com.duyun.huihsou.housekepper.admin.inteceptor.VisitorAccessible;
-import com.duyun.huihsou.housekepper.admin.request.CategoryParams;
-import com.duyun.huihsou.housekepper.admin.service.category.CategoryService;
+import com.duyun.huihsou.housekepper.admin.request.BaseParams;
+import com.duyun.huihsou.housekepper.admin.request.UserParams;
+import com.duyun.huihsou.housekepper.admin.request.WordBookParams;
+import com.duyun.huihsou.housekepper.admin.service.problem.ProblemService;
+import com.duyun.huihsou.housekepper.admin.service.user.UserService;
+import com.duyun.huihsou.housekepper.admin.service.wordbook.WordBookService;
+import com.duyun.huihsou.housekepper.admin.vo.ProblemVO;
 import com.duyun.huishou.housekeeper.po.CategoryEntity;
+import com.duyun.huishou.housekeeper.po.ProblemEntity;
+import com.duyun.huishou.housekeeper.po.UserEntity;
+import com.duyun.huishou.housekeeper.po.WordBookEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -19,31 +28,30 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
-
 /**
  * @author haoshijing
  * @version 2018年05月08日 21:13
  **/
 @Controller
-@RequestMapping("/goods")
-public class GoodsController {
+@RequestMapping("/wordbook")
+public class WordBookController {
 
-    private Logger logger = LoggerFactory.getLogger(GoodsController.class);
+    private Logger logger = LoggerFactory.getLogger(WordBookController.class);
 
     @Autowired
-    private CategoryService categoryService;
+    private WordBookService wordBookService;
 
     @VisitorAccessible
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index() {
-        return "product-brand";
+        return "wordbook-list";
     }
 
     @VisitorAccessible
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public String getList() {
-        List<CategoryEntity> list = categoryService.getList();
+        List<WordBookEntity> list = wordBookService.getList();
 
         return JSONObject.toJSONString(list, SerializerFeature.WriteMapNullValue);
     }
@@ -51,38 +59,35 @@ public class GoodsController {
     @VisitorAccessible
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String edit(@PathVariable Integer id, Model model) {
-        CategoryEntity entity = categoryService.selectByPrimaryKey(id);
+        WordBookEntity entity = wordBookService.selectByPrimaryKey(id);
         if (entity!=null){
             model.addAttribute("entity", entity);
         }
-        return "product-add";
+        return "wordbook-add";
     }
 
     @VisitorAccessible
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String add( Model model) {
-        CategoryEntity entity = new CategoryEntity();
+        WordBookEntity entity = new WordBookEntity();
         model.addAttribute("entity", entity);
-        return "product-add";
+        return "wordbook-add";
     }
 
     @VisitorAccessible
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
-    public String save(CategoryParams params) {
+    public String save(WordBookParams params) {
 
-        CategoryEntity entity = new CategoryEntity();
+        WordBookEntity entity = new WordBookEntity();
         BeanUtils.copyProperties(params, entity);
-        categoryService.updateByPrimaryKeySelective(entity);
         if (entity.getId()!=null){
-            entity.setLastUpdateTime(System.currentTimeMillis());
-
+            wordBookService.updateByPrimaryKeySelective(entity);
         } else {
-            entity.setInsertTime(System.currentTimeMillis());
-            categoryService.insert(entity);
+            wordBookService.insertSelective(entity);
         }
 
-        return "ok";
+        return JSONObject.toJSONString(true);
     }
 
     @VisitorAccessible
@@ -90,7 +95,7 @@ public class GoodsController {
     @ResponseBody
     public String delete(@PathVariable Integer id) {
         try {
-            categoryService.deleteByPrimaryKey(id);
+            wordBookService.deleteByPrimaryKey(id);
         }catch (Exception e) {
             logger.error(e.getMessage());
             return JSONObject.toJSONString("error");
@@ -98,5 +103,4 @@ public class GoodsController {
 
         return JSONObject.toJSONString("ok");
     }
-
 }

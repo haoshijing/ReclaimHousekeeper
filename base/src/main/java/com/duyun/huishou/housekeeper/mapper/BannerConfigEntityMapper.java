@@ -37,4 +37,5 @@ public interface BannerConfigEntityMapper extends IBaseDao<BannerConfigEntity>{
     int delectOneBanprom(Integer id);
 
 
+    List<BannerConfigEntity> getList();
 }

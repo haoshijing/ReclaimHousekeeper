@@ -32,7 +32,7 @@ public class BannerConfigServiceImpl extends AbstractBaseService<BannerConfigEnt
     }
 
     @Override
-    public List<BannerConfigEntity> getBannerConfigByConfition(BannerConfigEntity entity) {
-        return bannerConfigEntityMapper.selectByCondition(entity);
+    public List<BannerConfigEntity> getList() {
+        return bannerConfigEntityMapper.getList();
     }
 }

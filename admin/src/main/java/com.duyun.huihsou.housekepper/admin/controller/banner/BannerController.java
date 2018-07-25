@@ -1,11 +1,15 @@
-package com.duyun.huihsou.housekepper.admin.controller.goods;
+package com.duyun.huihsou.housekepper.admin.controller.banner;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.duyun.huihsou.housekepper.admin.controller.member.MemberController;
 import com.duyun.huihsou.housekepper.admin.inteceptor.VisitorAccessible;
-import com.duyun.huihsou.housekepper.admin.request.CategoryParams;
-import com.duyun.huihsou.housekepper.admin.service.category.CategoryService;
+import com.duyun.huihsou.housekepper.admin.request.UserParams;
+import com.duyun.huihsou.housekepper.admin.service.banner.BannerConfigService;
+import com.duyun.huihsou.housekepper.admin.service.wordbook.WordBookService;
+import com.duyun.huishou.housekeeper.po.BannerConfigEntity;
 import com.duyun.huishou.housekeeper.po.CategoryEntity;
+import com.duyun.huishou.housekeeper.po.WordBookEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -19,31 +23,30 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
-
 /**
  * @author haoshijing
  * @version 2018年05月08日 21:13
  **/
 @Controller
-@RequestMapping("/goods")
-public class GoodsController {
+@RequestMapping("/banner")
+public class BannerController {
 
-    private Logger logger = LoggerFactory.getLogger(GoodsController.class);
+    private Logger logger = LoggerFactory.getLogger(BannerController.class);
 
     @Autowired
-    private CategoryService categoryService;
+    private BannerConfigService bannerConfigService;
 
     @VisitorAccessible
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index() {
-        return "product-brand";
+        return "banner-list";
     }
 
     @VisitorAccessible
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public String getList() {
-        List<CategoryEntity> list = categoryService.getList();
+        List<BannerConfigEntity> list = bannerConfigService.getList();
 
         return JSONObject.toJSONString(list, SerializerFeature.WriteMapNullValue);
     }
@@ -51,38 +54,33 @@ public class GoodsController {
     @VisitorAccessible
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String edit(@PathVariable Integer id, Model model) {
-        CategoryEntity entity = categoryService.selectByPrimaryKey(id);
+        BannerConfigEntity entity = bannerConfigService.selectByPrimaryKey(id);
         if (entity!=null){
             model.addAttribute("entity", entity);
         }
-        return "product-add";
+        return "banner-add";
     }
-
     @VisitorAccessible
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String add( Model model) {
-        CategoryEntity entity = new CategoryEntity();
+        BannerConfigEntity entity = new BannerConfigEntity();
         model.addAttribute("entity", entity);
-        return "product-add";
+        return "banner-add";
     }
-
     @VisitorAccessible
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
-    public String save(CategoryParams params) {
+    public String save(UserParams params) {
 
-        CategoryEntity entity = new CategoryEntity();
+        BannerConfigEntity entity = new BannerConfigEntity();
         BeanUtils.copyProperties(params, entity);
-        categoryService.updateByPrimaryKeySelective(entity);
         if (entity.getId()!=null){
-            entity.setLastUpdateTime(System.currentTimeMillis());
-
+            bannerConfigService.updateByPrimaryKeySelective(entity);
         } else {
-            entity.setInsertTime(System.currentTimeMillis());
-            categoryService.insert(entity);
+            bannerConfigService.insert(entity);
         }
 
-        return "ok";
+        return JSONObject.toJSONString(true);
     }
 
     @VisitorAccessible
@@ -90,7 +88,7 @@ public class GoodsController {
     @ResponseBody
     public String delete(@PathVariable Integer id) {
         try {
-            categoryService.deleteByPrimaryKey(id);
+            bannerConfigService.deleteByPrimaryKey(id);
         }catch (Exception e) {
             logger.error(e.getMessage());
             return JSONObject.toJSONString("error");
@@ -98,5 +96,4 @@ public class GoodsController {
 
         return JSONObject.toJSONString("ok");
     }
-
 }

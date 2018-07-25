@@ -14,5 +14,6 @@ import java.util.List;
  */
 public interface BannerConfigService extends IBaseService<BannerConfigEntity> {
 
-    List<BannerConfigEntity> getBannerConfigByConfition(BannerConfigEntity entity);
+
+    List<BannerConfigEntity> getList();
 }

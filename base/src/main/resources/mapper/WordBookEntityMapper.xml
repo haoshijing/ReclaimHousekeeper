@@ -10,7 +10,7 @@
     <result column="last_update_time" property="lastUpdateTime" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, key, value, insert_time, last_update_time
+    id, `name`, `key`, `value`, insert_time, last_update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -18,13 +18,19 @@
     from t_wordbook
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <!--getList-->
+  <select id="getList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_wordbook
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_wordbook
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.duyun.huishou.housekeeper.po.WordBookEntity" >
-    insert into t_wordbook (id, name, key, 
-      value, insert_time, last_update_time
+    insert into t_wordbook (id, `name`, `key`,
+      `value`, insert_time, last_update_time
       )
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{key,jdbcType=VARCHAR}, 
       #{value,jdbcType=VARCHAR}, #{insertTime,jdbcType=BIGINT}, #{lastUpdateTime,jdbcType=BIGINT}
@@ -37,13 +43,13 @@
         id,
       </if>
       <if test="name != null" >
-        name,
+        `name`,
       </if>
       <if test="key != null" >
-        key,
+        `key`,
       </if>
       <if test="value != null" >
-        value,
+        `value`,
       </if>
       <if test="insertTime != null" >
         insert_time,
@@ -77,13 +83,13 @@
     update t_wordbook
     <set >
       <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
+        `name` = #{name,jdbcType=VARCHAR},
       </if>
       <if test="key != null" >
-        key = #{key,jdbcType=VARCHAR},
+        `key` = #{key,jdbcType=VARCHAR},
       </if>
       <if test="value != null" >
-        value = #{value,jdbcType=VARCHAR},
+        `value` = #{value,jdbcType=VARCHAR},
       </if>
       <if test="insertTime != null" >
         insert_time = #{insertTime,jdbcType=BIGINT},
@@ -96,9 +102,9 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.duyun.huishou.housekeeper.po.WordBookEntity" >
     update t_wordbook
-    set name = #{name,jdbcType=VARCHAR},
-      key = #{key,jdbcType=VARCHAR},
-      value = #{value,jdbcType=VARCHAR},
+    set `name` = #{name,jdbcType=VARCHAR},
+      `key` = #{key,jdbcType=VARCHAR},
+      `value` = #{value,jdbcType=VARCHAR},
       insert_time = #{insertTime,jdbcType=BIGINT},
       last_update_time = #{lastUpdateTime,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}

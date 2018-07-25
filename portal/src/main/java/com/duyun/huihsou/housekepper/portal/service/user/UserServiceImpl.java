@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class UserServiceImpl extends AbstractBaseService<UserEntity> implements UserService {
 
-    @Autowired
+    @Autowired(required = false)
     private UserEntityMapper userMapper;
 
     @Override
@@ -102,6 +102,7 @@ public class UserServiceImpl extends AbstractBaseService<UserEntity> implements 
         String salt = userEntity.getSalt();
         String password = EncryptionUtils.encryptPasswordBySalt(params.getNewPwd2(), salt);
         userEntity.setPassword(password);
+        userEntity.setLastUpdateTime(System.currentTimeMillis());
         int result = userMapper.updateByPrimaryKeySelective(userEntity);
         if (result == 0) {
             return false;
