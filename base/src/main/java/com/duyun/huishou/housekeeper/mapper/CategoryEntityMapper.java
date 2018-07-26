@@ -37,4 +37,6 @@ public interface CategoryEntityMapper extends IBaseDao<CategoryEntity>{
     Page<CategoryEntity> findByParams();
 
     Integer getCount();
+
+    List<CategoryEntity> selectByType();
 }

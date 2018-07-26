@@ -22,4 +22,6 @@ public interface CategoryService extends IBaseService<CategoryEntity> {
     List<CategoryEntity> getList();
 
     Integer getNum();
+
+    List<CategoryEntity> selectByType();
 }

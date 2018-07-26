@@ -22,10 +22,10 @@
 <body>
 <div class="page-container">
 	<form action="/admin/order/save" method="post" class="form form-horizontal" id="form-goods-add">
-		<div class="row cl">
+		<div class="row cl" style="display: none">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>ID：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" th:value="${entity.id}" placeholder="" id="id" name="id" style="display: none"/>
+				<input type="text" class="input-text" th:value="${entity.id}" placeholder="" id="id" name="id" th:readonly="true"/>
 			</div>
 		</div>
 		<div class="row cl">

@@ -150,4 +150,12 @@
     count(id)
     from t_category
   </select>
+
+  <!--selectByType-->
+  <select id="selectByType" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_category
+    where category_type IN (1,2)
+  </select>
 </mapper>

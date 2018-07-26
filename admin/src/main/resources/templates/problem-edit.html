@@ -20,10 +20,10 @@
 <body>
 <article class="page-container">
 	<form class="form form-horizontal" action="/admin/problem/update" method="post" id="form-problem-add">
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>问题名称：</label>
+		<div class="row cl" style="display: none">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>问题ID：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" name="id" class="input-text" th:value="${problem.id}" />
+				<input type="text" name="id" class="input-text" th:value="${problem.id}" th:readonly="true"/>
 			</div>
 		</div>
 		<div class="row cl">

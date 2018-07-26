@@ -6,6 +6,7 @@ import com.duyun.huihsou.housekepper.admin.inteceptor.VisitorAccessible;
 import com.duyun.huihsou.housekepper.admin.request.CategoryParams;
 import com.duyun.huihsou.housekepper.admin.service.category.CategoryService;
 import com.duyun.huishou.housekeeper.po.CategoryEntity;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -52,17 +53,23 @@ public class GoodsController {
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String edit(@PathVariable Integer id, Model model) {
         CategoryEntity entity = categoryService.selectByPrimaryKey(id);
-        if (entity!=null){
+        List<CategoryEntity> list = categoryService.selectByType();
+        if (entity != null && CollectionUtils.isNotEmpty(list)) {
             model.addAttribute("entity", entity);
+            model.addAttribute("list", list);
+        } else {
+            throw new RuntimeException("编辑失败");
         }
         return "product-add";
     }
 
     @VisitorAccessible
     @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String add( Model model) {
+    public String add(Model model) {
         CategoryEntity entity = new CategoryEntity();
+        List<CategoryEntity> list = categoryService.selectByType();
         model.addAttribute("entity", entity);
+        model.addAttribute("list", list);
         return "product-add";
     }
 
@@ -74,7 +81,7 @@ public class GoodsController {
         CategoryEntity entity = new CategoryEntity();
         BeanUtils.copyProperties(params, entity);
         categoryService.updateByPrimaryKeySelective(entity);
-        if (entity.getId()!=null){
+        if (entity.getId() != null) {
             entity.setLastUpdateTime(System.currentTimeMillis());
 
         } else {
@@ -91,7 +98,7 @@ public class GoodsController {
     public String delete(@PathVariable Integer id) {
         try {
             categoryService.deleteByPrimaryKey(id);
-        }catch (Exception e) {
+        } catch (Exception e) {
             logger.error(e.getMessage());
             return JSONObject.toJSONString("error");
         }

@@ -53,6 +53,11 @@ public class CategoryServiceImpl extends AbstractBaseService<CategoryEntity> imp
     }
 
     @Override
+    public List<CategoryEntity> selectByType() {
+        return categoryEntityMapper.selectByType();
+    }
+
+    @Override
     public IBaseDao getMapper() {
         return categoryEntityMapper;
     }
