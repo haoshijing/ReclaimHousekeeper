@@ -86,6 +86,7 @@ public class GoodsController {
 
         } else {
             entity.setInsertTime(System.currentTimeMillis());
+            entity.setCategoryType((byte) (entity.getParentId()+1));
             categoryService.insert(entity);
         }
 
