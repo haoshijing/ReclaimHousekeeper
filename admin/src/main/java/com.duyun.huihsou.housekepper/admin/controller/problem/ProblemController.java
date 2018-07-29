@@ -61,9 +61,9 @@ public class ProblemController {
             problemService.addProblem(problemVO);
         }catch (Exception e) {
             logger.error(e.getMessage());
-            return JSONObject.toJSONString("error");
+            return "error";
         }
-        return JSONObject.toJSONString("ok");
+        return "ok";
     }
 
 
@@ -96,6 +96,6 @@ public class ProblemController {
         problemEntity.setName(problemVO.getName());
         problemEntity.setAnswer(problemVO.getAnswer());
         problemService.updateByPrimaryKeySelective(problemEntity);
-        return JSONObject.toJSONString("ok");
+        return "ok";
     }
 }

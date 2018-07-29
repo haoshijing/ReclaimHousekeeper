@@ -72,7 +72,7 @@ public class MemberController {
             userService.insert(entity);
         }
 
-        return JSONObject.toJSONString(true);
+        return "ok";
     }
 
 

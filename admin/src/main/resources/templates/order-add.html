@@ -60,13 +60,18 @@
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>订单状态：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" th:value="${entity.orderStatus}" placeholder="" id="orderStatus" name="orderStatus" />
-			</div>
-		</div><div class="row cl">
+			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
+				<select class="select" th:value="${entity.orderStatus}" id="orderStatus" name="orderStatus">
+					<option value="0">进行中</option>
+					<option value="1">成功</option>
+					<option value="2">失败</option>
+				</select>
+				</span> </div>
+		</div>
+		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>快递单号：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" th:value="${entity.expressNo}" placeholder="" id="expressNo" name="orderStatus" />
+				<input type="text" class="input-text" th:value="${entity.expressNo}" placeholder="" id="expressNo" name="expressNo" />
 			</div>
 		</div>
 
@@ -114,6 +119,7 @@ $(function(){
         focusCleanup:true,
         success:"valid",
         submitHandler:function(form){
+            debugger
             $(form).ajaxSubmit(function (res) {
                 if (res == 'ok') {
                     parent.location.reload();
