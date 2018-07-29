@@ -2,8 +2,6 @@ package com.duyun.huihsou.housekepper.admin.controller.problem;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.duyun.huihsou.housekepper.admin.inteceptor.VisitorAccessible;
-import com.duyun.huihsou.housekepper.admin.request.BaseParams;
 import com.duyun.huihsou.housekepper.admin.service.problem.ProblemService;
 import com.duyun.huihsou.housekepper.admin.vo.ProblemVO;
 import com.duyun.huishou.housekeeper.po.ProblemEntity;
@@ -38,9 +36,6 @@ public class ProblemController {
     @RequestMapping(value = "/getData", method = RequestMethod.GET)
     @ResponseBody
     public String problemList(){
-        BaseParams baseParams = new BaseParams();
-        baseParams.setPageNo(null);
-        baseParams.setPageSize(null);// 不需要分页
         List<ProblemEntity> all = problemService.getAll();
         return JSONObject.toJSONString(all, SerializerFeature.WriteMapNullValue);
     }

@@ -2,7 +2,7 @@ package com.duyun.huihsou.housekepper.admin.service.news;
 
 
 import com.duyun.huihsou.housekepper.admin.service.IBaseService;
-import com.duyun.huishou.housekeeper.po.NewsEntity;
+import com.duyun.huishou.housekeeper.po.NewsTypeEntity;
 
 import java.util.List;
 
@@ -12,9 +12,7 @@ import java.util.List;
  * @email cn.lu.duke@gmail.com
  * @date January 10, 2018
  */
-public interface NewsService extends IBaseService<NewsEntity> {
+public interface NewsTypeService extends IBaseService<NewsTypeEntity> {
 
-    List<NewsEntity> getAll();
-
-    Integer getNum();
+    List<NewsTypeEntity> getAll();
 }

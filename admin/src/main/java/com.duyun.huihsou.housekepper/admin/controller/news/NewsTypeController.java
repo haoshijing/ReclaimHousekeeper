@@ -1,20 +1,18 @@
-package com.duyun.huihsou.housekepper.admin.controller.wordbook;
+package com.duyun.huihsou.housekepper.admin.controller.news;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.duyun.huihsou.housekepper.admin.request.WordBookParams;
-import com.duyun.huihsou.housekepper.admin.service.wordbook.WordBookService;
-import com.duyun.huishou.housekeeper.po.WordBookEntity;
+import com.duyun.huihsou.housekepper.admin.controller.order.OrderController;
+import com.duyun.huihsou.housekepper.admin.request.NewsTypeParams;
+import com.duyun.huihsou.housekepper.admin.service.news.NewsTypeService;
+import com.duyun.huishou.housekeeper.po.NewsTypeEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,58 +21,57 @@ import java.util.List;
  * @version 2018年05月08日 21:13
  **/
 @Controller
-@RequestMapping("/wordbook")
-public class WordBookController {
-
-    private Logger logger = LoggerFactory.getLogger(WordBookController.class);
+@RequestMapping("/news/type")
+public class NewsTypeController {
+    private Logger logger = LoggerFactory.getLogger(OrderController.class);
 
     @Autowired
-    private WordBookService wordBookService;
-
-
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public String index() {
-        return "wordbook-list";
-    }
+    private NewsTypeService newsTypeService;
 
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public String getList() {
-        List<WordBookEntity> list = wordBookService.getList();
-
+        List<NewsTypeEntity> list = newsTypeService.getAll();
         return JSONObject.toJSONString(list, SerializerFeature.WriteMapNullValue);
+    }
+
+
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    public String index(Model model) {
+        NewsTypeEntity entity = new NewsTypeEntity();
+        model.addAttribute("entity", entity);
+        return "articletype-list";
     }
 
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String edit(@PathVariable Integer id, Model model) {
-        WordBookEntity entity = wordBookService.selectByPrimaryKey(id);
+        NewsTypeEntity entity = newsTypeService.selectByPrimaryKey(id);
         if (entity!=null){
             model.addAttribute("entity", entity);
         }
-        return "wordbook-add";
+        return "articletype-add";
     }
-
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String add( Model model) {
-        WordBookEntity entity = new WordBookEntity();
+        NewsTypeEntity entity = new NewsTypeEntity();
         model.addAttribute("entity", entity);
-        return "wordbook-add";
+        return "articletype-add";
     }
 
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
-    public String save(WordBookParams params) {
+    public String save(NewsTypeParams params) {
 
-        WordBookEntity entity = new WordBookEntity();
+        NewsTypeEntity entity = new NewsTypeEntity();
         BeanUtils.copyProperties(params, entity);
         if (entity.getId()!=null){
-            wordBookService.updateByPrimaryKeySelective(entity);
+            newsTypeService.updateByPrimaryKeySelective(entity);
         } else {
-            wordBookService.insertSelective(entity);
+            newsTypeService.insertSelective(entity);
         }
 
         return JSONObject.toJSONString(true);
@@ -85,7 +82,7 @@ public class WordBookController {
     @ResponseBody
     public String delete(@PathVariable Integer id) {
         try {
-            wordBookService.deleteByPrimaryKey(id);
+            newsTypeService.deleteByPrimaryKey(id);
         }catch (Exception e) {
             logger.error(e.getMessage());
             return JSONObject.toJSONString("error");

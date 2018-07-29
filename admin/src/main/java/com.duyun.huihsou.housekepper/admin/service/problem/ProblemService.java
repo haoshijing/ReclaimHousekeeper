@@ -1,7 +1,6 @@
 package com.duyun.huihsou.housekepper.admin.service.problem;
 
 
-import com.duyun.huihsou.housekepper.admin.request.BaseParams;
 import com.duyun.huihsou.housekepper.admin.service.IBaseService;
 import com.duyun.huihsou.housekepper.admin.vo.ProblemVO;
 import com.duyun.huishou.housekeeper.po.ProblemEntity;
@@ -17,7 +16,6 @@ import java.util.List;
 public interface ProblemService extends IBaseService<ProblemEntity> {
 
     List<ProblemEntity> getAll();
-    List<ProblemEntity> getAll(BaseParams params);
 
     void addProblem(ProblemVO problemVO);
 }

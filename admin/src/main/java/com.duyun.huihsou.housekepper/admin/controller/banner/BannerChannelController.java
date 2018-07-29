@@ -2,12 +2,9 @@ package com.duyun.huihsou.housekepper.admin.controller.banner;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.duyun.huihsou.housekepper.admin.request.BannerConfigParams;
+import com.duyun.huihsou.housekepper.admin.request.BannerChannelParams;
 import com.duyun.huihsou.housekepper.admin.service.banner.BannerChannelService;
-import com.duyun.huihsou.housekepper.admin.service.banner.BannerConfigService;
 import com.duyun.huishou.housekeeper.po.BannerChannelEntity;
-import com.duyun.huishou.housekeeper.po.BannerConfigEntity;
-import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -26,13 +23,10 @@ import java.util.List;
  * @version 2018年05月08日 21:13
  **/
 @Controller
-@RequestMapping("/banner")
-public class BannerController {
+@RequestMapping("/banner/channel")
+public class BannerChannelController {
 
-    private Logger logger = LoggerFactory.getLogger(BannerController.class);
-
-    @Autowired
-    private BannerConfigService bannerConfigService;
+    private Logger logger = LoggerFactory.getLogger(BannerChannelController.class);
 
     @Autowired
     private BannerChannelService bannerChannelService;
@@ -40,14 +34,14 @@ public class BannerController {
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index() {
-        return "banner-list";
+        return "bannerchannel-list";
     }
 
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public String getList() {
-        List<BannerConfigEntity> list = bannerConfigService.getList();
+        List<BannerChannelEntity> list = bannerChannelService.getList();
 
         return JSONObject.toJSONString(list, SerializerFeature.WriteMapNullValue);
     }
@@ -55,34 +49,30 @@ public class BannerController {
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String edit(@PathVariable Integer id, Model model) {
-        BannerConfigEntity entity = bannerConfigService.selectByPrimaryKey(id);
-        List<BannerChannelEntity> list = bannerChannelService.getList();
-        if (entity!=null && CollectionUtils.isNotEmpty(list)){
+        BannerChannelEntity entity = bannerChannelService.selectByPrimaryKey(id);
+        if (entity!=null){
             model.addAttribute("entity", entity);
-            model.addAttribute("list", list);
         }
-        return "banner-add";
+        return "bannerchannel-add";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String add( Model model) {
-        BannerConfigEntity entity = new BannerConfigEntity();
-        List<BannerChannelEntity> list = bannerChannelService.getList();
+        BannerChannelEntity entity = new BannerChannelEntity();
         model.addAttribute("entity", entity);
-        model.addAttribute("list", list);
-        return "banner-add";
+        return "bannerchannel-add";
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
-    public String save(BannerConfigParams params) {
+    public String save(BannerChannelParams params) {
 
-        BannerConfigEntity entity = new BannerConfigEntity();
+        BannerChannelEntity entity = new BannerChannelEntity();
         BeanUtils.copyProperties(params, entity);
         if (entity.getId()!=null){
-            bannerConfigService.updateByPrimaryKeySelective(entity);
+            bannerChannelService.updateByPrimaryKeySelective(entity);
         } else {
-            bannerConfigService.insert(entity);
+            bannerChannelService.insert(entity);
         }
 
         return JSONObject.toJSONString(true);
@@ -93,7 +83,7 @@ public class BannerController {
     @ResponseBody
     public String delete(@PathVariable Integer id) {
         try {
-            bannerConfigService.deleteByPrimaryKey(id);
+            bannerChannelService.deleteByPrimaryKey(id);
         }catch (Exception e) {
             logger.error(e.getMessage());
             return JSONObject.toJSONString("error");

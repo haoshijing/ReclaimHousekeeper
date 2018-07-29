@@ -1,7 +1,6 @@
 package com.duyun.huihsou.housekepper.admin.service.problem;
 
 
-import com.duyun.huihsou.housekepper.admin.request.BaseParams;
 import com.duyun.huihsou.housekepper.admin.service.AbstractBaseService;
 import com.duyun.huihsou.housekepper.admin.vo.ProblemVO;
 import com.duyun.huishou.housekeeper.mapper.IBaseDao;
@@ -11,9 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author albert
@@ -40,13 +37,6 @@ public class ProblemServiceImpl extends AbstractBaseService<ProblemEntity> imple
         return problemEntityMapper.getAll();
     }
 
-    @Override
-    public List<ProblemEntity> getAll(BaseParams params) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("pageNo",params.getPageNo() - 1);
-        map.put("pageSize",params.getPageSize() * params.getPageNo());
-        return problemEntityMapper.selectAll(map);
-    }
 
 
     @Override

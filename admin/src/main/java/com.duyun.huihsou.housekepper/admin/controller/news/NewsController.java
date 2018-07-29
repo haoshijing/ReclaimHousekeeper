@@ -3,12 +3,12 @@ package com.duyun.huihsou.housekepper.admin.controller.news;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.duyun.huihsou.housekepper.admin.controller.order.OrderController;
-import com.duyun.huihsou.housekepper.admin.inteceptor.VisitorAccessible;
-import com.duyun.huihsou.housekepper.admin.request.BaseParams;
 import com.duyun.huihsou.housekepper.admin.request.NewsParams;
 import com.duyun.huihsou.housekepper.admin.service.news.NewsService;
-import com.duyun.huishou.housekeeper.po.CategoryEntity;
+import com.duyun.huihsou.housekepper.admin.service.news.NewsTypeService;
 import com.duyun.huishou.housekeeper.po.NewsEntity;
+import com.duyun.huishou.housekeeper.po.NewsTypeEntity;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -31,11 +31,13 @@ public class NewsController {
     @Autowired
     private NewsService newsService;
 
+    @Autowired
+    private NewsTypeService newsTypeService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    public String getList(BaseParams params) {
-        List<NewsEntity> list = newsService.getAll(params);
+    public String getList() {
+        List<NewsEntity> list = newsService.getAll();
         return JSONObject.toJSONString(list, SerializerFeature.WriteMapNullValue);
     }
 
@@ -51,8 +53,10 @@ public class NewsController {
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String edit(@PathVariable Integer id, Model model) {
         NewsEntity entity = newsService.selectByPrimaryKey(id);
-        if (entity!=null){
+        List<NewsTypeEntity> list = newsTypeService.getAll();
+        if (entity!=null && CollectionUtils.isNotEmpty(list)){
             model.addAttribute("entity", entity);
+            model.addAttribute("list", list);
         }
         return "article-add";
     }
@@ -60,7 +64,9 @@ public class NewsController {
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String add( Model model) {
         NewsEntity entity = new NewsEntity();
+        List<NewsTypeEntity> list = newsTypeService.getAll();
         model.addAttribute("entity", entity);
+        model.addAttribute("list", list);
         return "article-add";
     }
 
