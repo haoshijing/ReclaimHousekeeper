@@ -99,4 +99,11 @@ public class HomeController {
         }
         return new ApiResponse("OK");
     }
+
+//    @VisitorAccessible
+//    @RequestMapping(value = "/error", method = RequestMethod.GET)
+//    public String getError() {
+//        return "404";
+//    }
+
 }

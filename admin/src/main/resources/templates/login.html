@@ -79,14 +79,13 @@
                 passWord : $("#passWord").val(),
                 verifyCode: $("#verifyCode").val()}),
             success:function(data){
-                if (data) {
+                if (data==true) {
                     window.location.href = 'index'
                 } else {
-
+                    window.alert("登录失败，"+data.msg);
                 }
             },
             error:function(e){
-
                 window.clearInterval("登录失败");
             }
         });

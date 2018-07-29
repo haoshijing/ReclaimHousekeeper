@@ -1,5 +1,6 @@
 package com.duyun.huihsou.housekepper.admin.service.sysuser;
 
+import com.duyun.huihsou.housekepper.admin.exception.ApplicationException;
 import com.duyun.huihsou.housekepper.admin.request.AdminUserParams;
 import com.duyun.huihsou.housekepper.admin.service.AbstractBaseService;
 import com.duyun.huihsou.housekepper.admin.vo.SysUserVO;
@@ -27,12 +28,12 @@ public class SysUserServiceImpl extends AbstractBaseService<SysUserEntity> imple
     public SysUserVO checkLogin(AdminUserParams params) {
         SysUserEntity entity = sysUserEntityMapper.selectByName(params.getName());
         if (entity == null) {
-            throw new RuntimeException("用户不存在!");
+            throw new ApplicationException("用户不存在!");
         }
         String salt = entity.getSalt();
         String pwd = EncryptionUtils.encryptPasswordBySalt(params.getPassWord(), salt);
         if (!pwd.equals(entity.getPassWord())) {
-            throw new RuntimeException("密码错误！");
+            throw new ApplicationException("密码错误！");
         }
 
         return generateToken(entity);
@@ -43,7 +44,7 @@ public class SysUserServiceImpl extends AbstractBaseService<SysUserEntity> imple
 
         if (StringUtils.isNotEmpty(name) && StringUtils.isNotEmpty(passWord)) {
             if (sysUserEntityMapper.selectByName(name) != null) {
-                throw new RuntimeException("该用户已存在！");
+                throw new ApplicationException("该用户已存在！");
             }
             SysUserEntity sysUserEntity = new SysUserEntity();
             String salt = EncryptionUtils.generateSalt();
