@@ -1,5 +1,6 @@
 package com.duyun.huihsou.housekepper.admin.web;
 
+import com.alibaba.fastjson.JSON;
 import com.duyun.huihsou.housekepper.admin.gloabal.GlobalHolder;
 import com.duyun.huihsou.housekepper.admin.inteceptor.VisitorAccessible;
 import com.duyun.huihsou.housekepper.admin.service.sysuser.SysUserService;
@@ -51,6 +52,10 @@ public class LoginFilter extends HandlerInterceptorAdapter {
                 return true;
             }
             Cookie[] cookies = request.getCookies();
+            if (cookies == null) {
+                response.sendRedirect(request.getContextPath() + "/");
+                return false;
+            }
             List<Cookie> list= Arrays.asList(cookies);
             String token  = null;
             for (Cookie c:list) {
@@ -69,8 +74,8 @@ public class LoginFilter extends HandlerInterceptorAdapter {
                 }
                 GlobalHolder.setCurrentLoginUser(entity);
             } else {
-                ApiResponse tokenValidResponse = new ApiResponse(RetCode.TOKEN_VALID, "ticket error", null);
-//                response.getWriter().print(JSON.toJSON(tokenValidResponse));
+                ApiResponse tokenValidResponse = new ApiResponse(RetCode.TOKEN_VALID, "token失效，请重新登录！", null);
+                response.getWriter().print(JSON.toJSON(tokenValidResponse));
                 response.sendRedirect(request.getContextPath() + "/");
                 return false;
             }

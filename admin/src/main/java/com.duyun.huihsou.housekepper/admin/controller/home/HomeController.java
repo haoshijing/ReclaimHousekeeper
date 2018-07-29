@@ -31,7 +31,7 @@ public class HomeController {
     @Autowired
     private SysUserService sysUserService;
 
-    @VisitorAccessible
+
     @RequestMapping(value = "/welcome", method = RequestMethod.GET)
     public String welcome() {
         return "welcome";

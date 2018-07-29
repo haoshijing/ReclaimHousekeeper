@@ -41,13 +41,13 @@ public class WordBookController {
     @Autowired
     private WordBookService wordBookService;
 
-    @VisitorAccessible
+
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index() {
         return "wordbook-list";
     }
 
-    @VisitorAccessible
+
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public String getList() {
@@ -56,7 +56,7 @@ public class WordBookController {
         return JSONObject.toJSONString(list, SerializerFeature.WriteMapNullValue);
     }
 
-    @VisitorAccessible
+
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String edit(@PathVariable Integer id, Model model) {
         WordBookEntity entity = wordBookService.selectByPrimaryKey(id);
@@ -66,7 +66,7 @@ public class WordBookController {
         return "wordbook-add";
     }
 
-    @VisitorAccessible
+
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String add( Model model) {
         WordBookEntity entity = new WordBookEntity();
@@ -74,7 +74,7 @@ public class WordBookController {
         return "wordbook-add";
     }
 
-    @VisitorAccessible
+
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
     public String save(WordBookParams params) {
@@ -90,7 +90,7 @@ public class WordBookController {
         return JSONObject.toJSONString(true);
     }
 
-    @VisitorAccessible
+
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     @ResponseBody
     public String delete(@PathVariable Integer id) {

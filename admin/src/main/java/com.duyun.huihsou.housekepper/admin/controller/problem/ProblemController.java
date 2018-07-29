@@ -1,6 +1,5 @@
 package com.duyun.huihsou.housekepper.admin.controller.problem;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.duyun.huihsou.housekepper.admin.inteceptor.VisitorAccessible;
@@ -29,7 +28,7 @@ import java.util.List;
 public class ProblemController {
 
     private Logger logger = LoggerFactory.getLogger(ProblemController.class);
-    @VisitorAccessible
+
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String problemListPage() {
 
@@ -46,7 +45,7 @@ public class ProblemController {
         return JSONObject.toJSONString(all, SerializerFeature.WriteMapNullValue);
     }
 
-    @VisitorAccessible
+
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String problemAdd() {
         return "problem-add";
@@ -54,7 +53,7 @@ public class ProblemController {
 
     @Autowired
     private ProblemService problemService;
-    @VisitorAccessible
+
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public String problemAdd1(ProblemVO problemVO) {
@@ -67,7 +66,7 @@ public class ProblemController {
         return JSONObject.toJSONString("ok");
     }
 
-    @VisitorAccessible
+
     @RequestMapping(value = "/del/{id}", method = RequestMethod.POST)
     @ResponseBody
     public String problemDel(@PathVariable Integer id) {
@@ -80,7 +79,7 @@ public class ProblemController {
         return JSONObject.toJSONString("ok");
     }
 
-    @VisitorAccessible
+
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String problemUpdatePage(Model model, @PathVariable Integer id) {
         ProblemEntity problemEntity = problemService.selectByPrimaryKey(id);
@@ -88,7 +87,7 @@ public class ProblemController {
         return "problem-edit";
     }
 
-    @VisitorAccessible
+
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
     public String problemUpdate(ProblemVO problemVO) {

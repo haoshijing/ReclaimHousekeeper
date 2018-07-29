@@ -36,13 +36,13 @@ public class BannerController {
     @Autowired
     private BannerConfigService bannerConfigService;
 
-    @VisitorAccessible
+
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index() {
         return "banner-list";
     }
 
-    @VisitorAccessible
+
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public String getList() {
@@ -51,7 +51,7 @@ public class BannerController {
         return JSONObject.toJSONString(list, SerializerFeature.WriteMapNullValue);
     }
 
-    @VisitorAccessible
+
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String edit(@PathVariable Integer id, Model model) {
         BannerConfigEntity entity = bannerConfigService.selectByPrimaryKey(id);
@@ -60,14 +60,14 @@ public class BannerController {
         }
         return "banner-add";
     }
-    @VisitorAccessible
+
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String add( Model model) {
         BannerConfigEntity entity = new BannerConfigEntity();
         model.addAttribute("entity", entity);
         return "banner-add";
     }
-    @VisitorAccessible
+
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
     public String save(UserParams params) {
@@ -83,7 +83,7 @@ public class BannerController {
         return JSONObject.toJSONString(true);
     }
 
-    @VisitorAccessible
+
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     @ResponseBody
     public String delete(@PathVariable Integer id) {

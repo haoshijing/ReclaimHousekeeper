@@ -35,13 +35,13 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @VisitorAccessible
+
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index() {
         return "order-list";
     }
 
-    @VisitorAccessible
+
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public String getList() {
@@ -50,7 +50,7 @@ public class OrderController {
         return JSONObject.toJSONString(list, SerializerFeature.WriteMapNullValue);
     }
 
-    @VisitorAccessible
+
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String edit(@PathVariable Integer id, Model model) {
         OrderEntity entity = orderService.selectByPrimaryKey(id);
@@ -60,7 +60,7 @@ public class OrderController {
         return "order-add";
     }
 
-    @VisitorAccessible
+
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
     public String save(OrderParams params) {
@@ -76,7 +76,7 @@ public class OrderController {
         return "ok";
     }
 
-    @VisitorAccessible
+
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     @ResponseBody
     public String delete(@PathVariable Integer id) {

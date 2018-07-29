@@ -34,13 +34,13 @@ public class MemberController {
     @Autowired
     private UserService userService;
 
-    @VisitorAccessible
+
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index() {
         return "member-list";
     }
 
-    @VisitorAccessible
+
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public String getList() {
@@ -49,7 +49,7 @@ public class MemberController {
         return JSONObject.toJSONString(list, SerializerFeature.WriteMapNullValue);
     }
 
-    @VisitorAccessible
+
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String edit(@PathVariable Integer id, Model model) {
         UserEntity entity = userService.selectByPrimaryKey(id);
@@ -59,7 +59,7 @@ public class MemberController {
         return "member-add";
     }
 
-    @VisitorAccessible
+
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
     public String save(UserParams params) {
@@ -75,7 +75,7 @@ public class MemberController {
         return JSONObject.toJSONString(true);
     }
 
-    @VisitorAccessible
+
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     @ResponseBody
     public String delete(@PathVariable Integer id) {

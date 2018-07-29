@@ -34,13 +34,11 @@ public class GoodsController {
     @Autowired
     private CategoryService categoryService;
 
-    @VisitorAccessible
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index() {
         return "product-brand";
     }
 
-    @VisitorAccessible
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public String getList() {
@@ -49,7 +47,7 @@ public class GoodsController {
         return JSONObject.toJSONString(list, SerializerFeature.WriteMapNullValue);
     }
 
-    @VisitorAccessible
+
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String edit(@PathVariable Integer id, Model model) {
         CategoryEntity entity = categoryService.selectByPrimaryKey(id);
@@ -63,7 +61,7 @@ public class GoodsController {
         return "product-add";
     }
 
-    @VisitorAccessible
+
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String add(Model model) {
         CategoryEntity entity = new CategoryEntity();
@@ -73,7 +71,7 @@ public class GoodsController {
         return "product-add";
     }
 
-    @VisitorAccessible
+
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
     public String save(CategoryParams params) {
@@ -93,7 +91,7 @@ public class GoodsController {
         return "ok";
     }
 
-    @VisitorAccessible
+
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     @ResponseBody
     public String delete(@PathVariable Integer id) {

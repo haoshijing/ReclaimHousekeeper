@@ -31,7 +31,7 @@ public class NewsController {
     @Autowired
     private NewsService newsService;
 
-    @VisitorAccessible
+
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public String getList(BaseParams params) {
@@ -39,7 +39,7 @@ public class NewsController {
         return JSONObject.toJSONString(list, SerializerFeature.WriteMapNullValue);
     }
 
-    @VisitorAccessible
+
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index(Model model) {
         NewsEntity entity = new NewsEntity();
@@ -47,7 +47,7 @@ public class NewsController {
         return "article-list";
     }
 
-    @VisitorAccessible
+
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String edit(@PathVariable Integer id, Model model) {
         NewsEntity entity = newsService.selectByPrimaryKey(id);
@@ -56,7 +56,7 @@ public class NewsController {
         }
         return "article-add";
     }
-    @VisitorAccessible
+
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String add( Model model) {
         NewsEntity entity = new NewsEntity();
@@ -64,7 +64,7 @@ public class NewsController {
         return "article-add";
     }
 
-    @VisitorAccessible
+
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
     public String save(@RequestBody NewsParams params) {
@@ -80,7 +80,7 @@ public class NewsController {
         return JSONObject.toJSONString(true);
     }
 
-    @VisitorAccessible
+
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     @ResponseBody
     public String delete(@PathVariable Integer id) {

@@ -37,7 +37,7 @@ public class UploadImagesController {
 
     @Value("${web.upload-path}")
     private String PATH;
-    @VisitorAccessible
+
     @RequestMapping(value = "uploadimages", method = RequestMethod.POST)
     @ResponseBody
     public String fileUpload(@RequestParam("file") MultipartFile file,
