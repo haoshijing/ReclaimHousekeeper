@@ -1,6 +1,5 @@
 package com.duyun.huihsou.housekepper.admin.web;
 
-import com.alibaba.fastjson.JSON;
 import com.duyun.huihsou.housekepper.admin.gloabal.GlobalHolder;
 import com.duyun.huihsou.housekepper.admin.inteceptor.VisitorAccessible;
 import com.duyun.huihsou.housekepper.admin.service.sysuser.SysUserService;
@@ -24,7 +23,6 @@ import java.util.List;
 
 import static com.duyun.huihsou.housekepper.admin.constants.Constants.TOKEN;
 
-//import com.duyun.huihsou.housekepper.admin.service.user.UserService;
 
 
 /**
@@ -72,7 +70,8 @@ public class LoginFilter extends HandlerInterceptorAdapter {
                 GlobalHolder.setCurrentLoginUser(entity);
             } else {
                 ApiResponse tokenValidResponse = new ApiResponse(RetCode.TOKEN_VALID, "ticket error", null);
-                response.getWriter().print(JSON.toJSON(tokenValidResponse));
+//                response.getWriter().print(JSON.toJSON(tokenValidResponse));
+                response.sendRedirect(request.getContextPath() + "/");
                 return false;
             }
             return true;

@@ -76,7 +76,6 @@ public class HomeController {
         response.getWriter().close();
     }
 
-    @VisitorAccessible
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String getIndex(HttpServletRequest request, Model model) {
         Cookie[] cookies = request.getCookies();
