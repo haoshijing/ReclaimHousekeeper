@@ -2,9 +2,11 @@ package com.duyun.huihsou.housekepper.portal.service.goods;
 
 import com.duyun.huihsou.housekepper.portal.service.attribute.AttributeService;
 import com.duyun.huihsou.housekepper.portal.service.category.CategoryService;
+import com.duyun.huihsou.housekepper.portal.vo.ItemSkuVO;
 import com.duyun.huishou.housekeeper.po.AttributeDetailEntity;
 import com.duyun.huishou.housekeeper.po.CategoryEntity;
 import com.duyun.huishou.housekeeper.po.ItemSkuEntity;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +39,14 @@ public class GoodsServiceImpl implements GoodsService {
             itemSkuService.updateByPrimaryKeySelective(itemSkuEntity);
         }
         return itemSkuEntity.getId();
+    }
+
+    @Override
+    public ItemSkuVO get(ItemSkuEntity itemSkuEntity) {
+        ItemSkuVO vo = new ItemSkuVO();
+        itemSkuEntity = itemSkuService.selectByPrimaryKey(itemSkuEntity.getId());
+        BeanUtils.copyProperties(itemSkuEntity, vo);
+        return vo;
     }
 
     private void getPrice(ItemSkuEntity itemSkuEntity) {

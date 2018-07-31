@@ -34,7 +34,7 @@ public class AttributeController {
     @VisitorAccessible
     @RequestMapping(value = "/list", method = RequestMethod.POST, produces="application/json")
     public ApiResponse<List<AttributeEntity>> getList(@RequestBody Map<String, Object> map) {
-        Integer categoryId = (Integer) map.get("categoryId");
+        Integer categoryId = Integer.valueOf( map.get("categoryId").toString());
         if (categoryId==null) {
             return  new ApiResponse(RetCode.ERROR_PARAMS, "必填参数不能为空！");
         }

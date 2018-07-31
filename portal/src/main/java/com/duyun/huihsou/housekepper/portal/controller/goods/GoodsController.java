@@ -1,7 +1,9 @@
 package com.duyun.huihsou.housekepper.portal.controller.goods;
 
 import com.duyun.huihsou.housekepper.portal.gloabal.GlobalHolder;
+import com.duyun.huihsou.housekepper.portal.inteceptor.VisitorAccessible;
 import com.duyun.huihsou.housekepper.portal.service.goods.GoodsService;
+import com.duyun.huihsou.housekepper.portal.vo.ItemSkuVO;
 import com.duyun.huishou.housekeeper.ApiResponse;
 import com.duyun.huishou.housekeeper.constants.RetCode;
 import com.duyun.huishou.housekeeper.po.ItemSkuEntity;
@@ -31,5 +33,15 @@ public class GoodsController {
         UserEntity entity = GlobalHolder.getCurrentLoginUser();
         itemSkuEntity.setUserId(entity.getId());
         return new ApiResponse(goodsService.save(itemSkuEntity));
+    }
+
+    @VisitorAccessible
+    @RequestMapping(value = "/getsku", method = RequestMethod.POST, produces="application/json")
+    public ApiResponse<ItemSkuVO> get(@RequestBody ItemSkuEntity itemSkuEntity) {
+        if (itemSkuEntity.getId()==null) {
+            return  new ApiResponse(RetCode.ERROR_PARAMS, "必填参数不能为空！");
+        }
+        ItemSkuVO itemSkuVO = goodsService.get(itemSkuEntity);
+        return new ApiResponse(itemSkuVO);
     }
 }

@@ -2,6 +2,7 @@ package com.duyun.huihsou.housekepper.portal.service.news;
 
 
 import com.duyun.huihsou.housekepper.portal.request.BaseParams;
+import com.duyun.huihsou.housekepper.portal.request.NewsParams;
 import com.duyun.huihsou.housekepper.portal.service.AbstractBaseService;
 import com.duyun.huishou.housekeeper.mapper.IBaseDao;
 import com.duyun.huishou.housekeeper.mapper.NewsEntityMapper;
@@ -35,10 +36,11 @@ public class NewsServiceImpl extends AbstractBaseService<NewsEntity> implements 
     }
 
     @Override
-    public List<NewsEntity> getAll(BaseParams params) {
+    public List<NewsEntity> getAll(NewsParams params) {
         Map<String, Object> map = new HashMap<>();
         map.put("pageNo",params.getPageNo() - 1);
         map.put("pageSize",params.getPageSize() * params.getPageNo());
+        map.put("type",params.getType());
         return newsEntityMapper.selectAll(map);
     }
 

@@ -2,8 +2,10 @@ package com.duyun.huihsou.housekepper.portal.controller.news;
 
 import com.duyun.huihsou.housekepper.portal.inteceptor.VisitorAccessible;
 import com.duyun.huihsou.housekepper.portal.request.BaseParams;
+import com.duyun.huihsou.housekepper.portal.request.NewsParams;
 import com.duyun.huihsou.housekepper.portal.service.news.NewsService;
 import com.duyun.huishou.housekeeper.ApiResponse;
+import com.duyun.huishou.housekeeper.constants.RetCode;
 import com.duyun.huishou.housekeeper.po.CategoryEntity;
 import com.duyun.huishou.housekeeper.po.NewsEntity;
 import com.duyun.huishou.housekeeper.util.PageUtils;
@@ -28,7 +30,10 @@ public class NewsController {
 
     @VisitorAccessible
     @RequestMapping(value = "/list", method = RequestMethod.POST, produces="application/json")
-    public ApiResponse<List<CategoryEntity>> getList(@RequestBody BaseParams params) {
+    public ApiResponse<List<CategoryEntity>> getList(@RequestBody NewsParams params) {
+        if (params.getType()==null) {
+            return  new ApiResponse(RetCode.ERROR_PARAMS, "必填参数不能为空！");
+        }
         List<NewsEntity> list = newsService.getAll(params);
         Integer count = newsService.getNum();
         PageUtils pageUtils = new PageUtils(list,count, params.getPageSize(), params.getPageNo());

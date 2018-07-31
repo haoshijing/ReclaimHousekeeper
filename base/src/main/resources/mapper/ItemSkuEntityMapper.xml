@@ -3,7 +3,7 @@
 <mapper namespace="com.duyun.huishou.housekeeper.mapper.ItemSkuEntityMapper" >
   <resultMap id="BaseResultMap" type="com.duyun.huishou.housekeeper.po.ItemSkuEntity" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <id column="user_id" property="UserId" jdbcType="INTEGER" />
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
 
     <result column="category_id" property="categoryId" jdbcType="INTEGER" />
     <result column="content" property="content" jdbcType="VARCHAR" />

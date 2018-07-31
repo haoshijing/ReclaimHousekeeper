@@ -2,6 +2,7 @@ package com.duyun.huihsou.housekepper.portal.service.news;
 
 
 import com.duyun.huihsou.housekepper.portal.request.BaseParams;
+import com.duyun.huihsou.housekepper.portal.request.NewsParams;
 import com.duyun.huihsou.housekepper.portal.service.IBaseService;
 import com.duyun.huishou.housekeeper.po.NewsEntity;
 
@@ -15,7 +16,7 @@ import java.util.List;
  */
 public interface NewsService extends IBaseService<NewsEntity> {
 
-    List<NewsEntity> getAll(BaseParams params);
+    List<NewsEntity> getAll(NewsParams params);
 
     Integer getNum();
 }
