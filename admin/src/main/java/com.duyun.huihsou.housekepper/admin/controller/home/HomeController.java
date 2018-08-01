@@ -44,6 +44,12 @@ public class HomeController {
     }
 
     @VisitorAccessible
+    @RequestMapping(value = "/coding", method = RequestMethod.GET)
+    public String code() {
+        return "coding";
+    }
+
+    @VisitorAccessible
     @ResponseBody
     @RequestMapping(value = "/checklogin", method = RequestMethod.POST, produces = {"application/json"})
     public void login(@RequestBody AdminUserParams params, HttpServletRequest request, HttpServletResponse response) throws IOException {
