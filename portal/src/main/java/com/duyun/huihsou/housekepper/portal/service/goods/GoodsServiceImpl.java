@@ -3,6 +3,7 @@ package com.duyun.huihsou.housekepper.portal.service.goods;
 import com.duyun.huihsou.housekepper.portal.service.attribute.AttributeService;
 import com.duyun.huihsou.housekepper.portal.service.category.CategoryService;
 import com.duyun.huihsou.housekepper.portal.vo.ItemSkuVO;
+import com.duyun.huishou.housekeeper.exception.ApplicationException;
 import com.duyun.huishou.housekeeper.po.AttributeDetailEntity;
 import com.duyun.huishou.housekeeper.po.CategoryEntity;
 import com.duyun.huishou.housekeeper.po.ItemSkuEntity;
@@ -66,7 +67,7 @@ public class GoodsServiceImpl implements GoodsService {
             });
             itemSkuEntity.setPrice(price[0].setScale(2,BigDecimal.ROUND_DOWN));
         } else {
-            throw new RuntimeException("产品不存在！");
+            throw new ApplicationException("产品不存在！");
         }
 
     }

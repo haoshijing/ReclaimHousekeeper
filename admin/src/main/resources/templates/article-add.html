@@ -50,7 +50,7 @@
 			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
 				<select name="type" th:field="${entity.type}" id="type" class="select" th:value="${entity.type}"  >
 					<option value="">--请选择--</option>
-					<option th:each="cts,userStat:${list}" th:value="${cts.id}" th:text="${cts.name}"></option>
+					<option th:each="cts,userStat:${list}" th:value="${cts.type}" th:text="${cts.name}"></option>
 
 				</select>
 				</span> </div>

@@ -1,4 +1,4 @@
-package com.duyun.huihsou.housekepper.admin.exception;
+package com.duyun.huishou.housekeeper.exception;
 
 import com.duyun.huishou.housekeeper.constants.RetCode;
 import org.slf4j.Logger;

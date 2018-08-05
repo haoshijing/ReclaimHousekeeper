@@ -1,4 +1,4 @@
-package com.duyun.huihsou.housekepper.admin.exception;
+package com.duyun.huishou.housekeeper.exception;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
