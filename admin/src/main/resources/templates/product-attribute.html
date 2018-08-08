@@ -21,8 +21,7 @@
 <body>
 <nav class="breadcrumb">
 	<i class="Hui-iconfont">&#xe67f;</i>首页
-	<span class="c-gray en">&gt;</span> 电子数码管理
-	<span class="c-gray en">&gt;</span> 电子数码列表
+	<span class="c-gray en">&gt;</span> 产品名称
 	<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
 		<i class="Hui-iconfont">&#xe68f;</i>
 	</a>
@@ -30,17 +29,16 @@
 <div class="page-container">
 
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">
-		<a class="btn btn-primary radius" data-title="添加电子数码" onclick="add('新增','/admin/goods/add')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加电子数码</a></span> </div>
+		<a class="btn btn-primary radius" data-title="添加属性" onclick="add('新增','/admin/attribute/add/')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加属性</a></span> </div>
 	<div class="mt-20">
+		<input id="categoryId" style="display: none" th:value="${categoryId}" />
 		<table class="table table-border table-bordered table-bg table-sort">
 			<thead>
 				<tr class="text-c">
 					<th width="25"><input type="checkbox" name="" value="" /></th>
 					<th width="70">ID</th>
-					<th width="80">电子数码名称</th>
-					<th width="200">电子数码图标</th>
-					<th width="120">是否商品</th>
-					<th width="120">原价</th>
+					<th width="80">产品名称</th>
+					<th width="200">属性名称</th>
 					<th width="100">操作</th>
 				</tr>
 			</thead>
@@ -65,6 +63,7 @@
 <script type="text/javascript">
     var tbl;
     $(function () {
+        var categoryId= $( '#categoryId' ).val();
         tbl=$('.table-sort').dataTable({
             "aaSorting": [[ 1, "desc" ]],//默认第几个排序
             /* 			"bStateSave": true,//状态保存 */
@@ -75,7 +74,7 @@
             "serverSide":false,
 
             "ajax": {
-                url:"list",
+                url:"/admin/attribute/list/"+categoryId,
                 type:"get",
                 dataType: "json",
                 dataSrc:
@@ -96,36 +95,17 @@
                     }
                 },
                 { "data": "id" },
-                { "data": "name" ,"bSortable": false},
-                { "data": "icon",
+                { "data": "categoryId" ,"bSortable": false},
+                { "data": "attributeName",
                     "bSortable": false,
-                    "render": function ( data, type, full, meta ) {
-                        return '<div style="width:40px;height:30px;display:inline-block; verticalAlign:middle;marginRight:10px">' +
-                            '<a href="'+data+'" target="_blank"><img src="'+data+'" style="width:100%;height:100%;border:none" /></a></div>';
-                    }
-                },
-                { "data": "categoryType",
-                    "bSortable": false,
-                    "render": function ( data, type, full, meta ) {
-                        return data==3?'<span>是</span>':'<span>否</span>'
-                    }
-                },
-                { "data": "price",
-                    "bSortable": false,
-                    "render": function ( data, type, full, meta ) {
-                        return data!=null?'<span>'+data +'</span>':'<span>0</span>'
-                    }
                 },
 
                 { "data":  null,"bSortable": false,
-                    "render": function (data, full, type,row) {
-						var attr = data.categoryType==3?'<a title="编辑商品属性" href="/admin/attribute/index/'+ data.id +'">'
-                            + '<i class="Hui-iconfont">&#xe6df;</i>编辑商品属性</a>':''
-                        var tem = attr
-							+ '<a title="编辑" href="javascript:;" onclick="edit(\'编辑\',\'/admin/goods/edit\',\''+ data.id +'\',\'800\',\'500\')">'
-                            + '<i class="Hui-iconfont">&#xe6df;</i>编辑商品</a>'+
-                            '<a title="删除" href="javascript:;" onclick="del(this,\''+data.id+'\')">'
-                            + '<i class="Hui-iconfont">&#xe6e2;</i>删除</a>';
+                    "render": function (data, type,row) {
+                        var tem = '<a title="编辑" href="javascript:;" onclick="edit(\'编辑\',\'/admin/attribute/edit\',\''+ data.id +'\',\'800\',\'500\')" class="ml-5" style="text-decoration:none">'
+                            + '<i class="Hui-iconfont">&#xe6df;</i></a>'+
+                            '<a title="删除" href="javascript:;" onclick="del(this,\''+data.id+'\')" class="ml-5" style="text-decoration:none">'
+                            + '<i class="Hui-iconfont">&#xe6e2;</i></a>';
                         return tem;
                     }
                 }
@@ -134,19 +114,21 @@
     });
 /*资讯-编辑*/
 function add(title,url){
+    var categoryId= $( '#categoryId' ).val();
 	var index = layer.open({
 		type: 2,
 		title: title,
-		content: url
+		content: url+categoryId
 	});
 	layer.full(index);
 }
 /*资讯-编辑*/
 function edit(title,url,id,w,h){
+    var categoryId= $( '#categoryId' ).val();
 	var index = layer.open({
 		type: 2,
 		title: title,
-		content: url + "/" + id
+		content: url + "/" + categoryId + "/" + id
 	});
 	layer.full(index);
 }
@@ -154,7 +136,7 @@ function del(obj,id) {
 	layer.confirm('确认要删除吗？', function (index) {
 		$.ajax({
 			type: 'POST',
-			url: '/admin/goods/delete/' + id,
+			url: '/admin/attribute/delete/' + id,
 			dataType: 'json',
 			success: function (data) {
 				$(obj).parents("tr").remove();

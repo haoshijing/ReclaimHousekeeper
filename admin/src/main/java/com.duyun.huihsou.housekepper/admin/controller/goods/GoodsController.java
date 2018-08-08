@@ -78,9 +78,9 @@ public class GoodsController {
 
         CategoryEntity entity = new CategoryEntity();
         BeanUtils.copyProperties(params, entity);
-        categoryService.updateByPrimaryKeySelective(entity);
+        entity.setLastUpdateTime(System.currentTimeMillis());
         if (entity.getId() != null) {
-            entity.setLastUpdateTime(System.currentTimeMillis());
+            categoryService.updateByPrimaryKeySelective(entity);
 
         } else {
             entity.setInsertTime(System.currentTimeMillis());

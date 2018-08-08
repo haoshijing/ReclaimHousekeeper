@@ -23,26 +23,16 @@ import java.util.Map;
 
 @Service
 @Slf4j
-public class AttributeServiceImpl extends AbstractBaseService<AttributeEntity> implements AttributeService {
+public class AttributeDetailServiceImpl extends AbstractBaseService<AttributeDetailEntity> implements AttributeDetailService {
 
-    @Autowired
-    private AttributeEntityMapper attributeEntityMapper;
 
     @Autowired
     private AttributeDetailEntityMapper attributeDetailEntityMapper;
 
-    @Override
-    public List<AttributeEntity> getAttributeByCategoryId(Integer categoryId) {
-        return attributeEntityMapper.selectByCategoryId(categoryId);
-    }
 
-    @Override
-    public List<AttributeDetailEntity> getAttributeDetailByCondetion(Map<String, Object> map) {
-        return attributeDetailEntityMapper.selectByCondition(map);
-    }
 
     @Override
     public IBaseDao getMapper() {
-        return attributeEntityMapper;
+        return attributeDetailEntityMapper;
     }
 }
